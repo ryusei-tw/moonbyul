@@ -1,170 +1,157 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.O.S - Moon Byul</title>
-    <style>
-        /* 共用樣式設定 */
-        :root {
-            /* 1. 改成預設亮色 (Light Mode) */
-            --bg-color: #f5f5f5;        /* 淺灰白背景 */
-            --text-color: #333333;      /* 深灰字體 */
-            --highlight-color: #d32f2f; /* 日文 (深紅) */
-            --eng-color: #2e7d32;       /* 英文 (深綠) */
-            --zh-color: #e65100;        /* 中文 (深橘) */
-            --cheer-color: #ff005d;     /* 應援色 (深粉紅) */
-            --box-border: #ccc;
-            --sub-text: #666;
-            --btn-border: #7c4dff;
-        }
-
-        /* 2. 新增深色模式 (Dark Mode) */
-        body.dark-mode {
-            --bg-color: #121212;        /* 深黑背景 */
-            --text-color: #ffffff;      /* 白字體 */
-            --highlight-color: #ffeb3b; /* 日文 (黃) */
-            --eng-color: #69f0ae;       /* 英文 (螢光綠) */
-            --zh-color: #ffab91;        /* 中文 (淺橘) */
-            --cheer-color: #ff80ab;     /* 應援色 (亮粉紅) */
-            --box-border: #333;
-            --sub-text: #888;
-        }
-
-        body {
-            background-color: var(--bg-color); color: var(--text-color);
-            font-family: sans-serif; margin: 0; padding: 20px; padding-top: 180px;
-            text-align: center; line-height: 1.6; transition: 0.3s;
-        }
-        /* 控制列 */
-        .controls {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background-color: var(--bg-color); padding: 10px 0;
-            border-bottom: 1px solid var(--box-border); z-index: 100;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            transition: background-color 0.3s;
-        }
-        .btn-row { display: flex; gap: 8px; justify-content: center; width: 90%; max-width: 600px; }
-        .btn {
-            background: none; border: 1px solid var(--btn-border); color: var(--text-color);
-            padding: 6px 12px; border-radius: 20px; cursor: pointer; flex: 1;
-            transition: color 0.3s;
-        }
-        .btn.active { background-color: #7c4dff; color: #fff; }
-        .btn-home { background-color: #333; border-color: #555; color: #fff; flex: 0 0 auto; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 14px; padding: 0 15px;}
-        
-        /* 歌詞樣式 */
-        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
-        .line-box { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid var(--box-border); }
-        .kr { font-size: 19px; font-weight: bold; margin-bottom: 4px; }
-        .jp { color: var(--highlight-color); display: block; }
-        .en, .zh { display: none; }
-        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
-        .zh { color: var(--zh-color); font-weight: bold; }
-        .cheer { color: var(--cheer-color); font-weight: 900; text-shadow: 0 0 5px rgba(255,64,129,0.3); }
-        .section-title { margin-top: 30px; color: var(--sub-text); font-size: 14px; border-top: 2px dashed var(--box-border); padding-top: 20px; display: inline-block; }
-        .note { font-size: 12px; color: var(--cheer-color); margin-top: 5px; display: block; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.O.S - Moon Byul</title>
+    <style>
+        /* 共用樣式設定 */
+        :root {
+            --bg-color: #121212; --text-color: #ffffff;
+            --highlight-color: #ffeb3b; --eng-color: #69f0ae; --zh-color: #ffab91;
+            --cheer-color: #ff80ab; --box-border: #333; --sub-text: #888;
+            --btn-border: #7c4dff;
+        }
+        body.light-mode {
+            --bg-color: #f5f5f5; --text-color: #333333;
+            --highlight-color: #d32f2f; --eng-color: #2e7d32; --zh-color: #e65100;
+            --cheer-color: #ff005d; --box-border: #ccc; --sub-text: #666;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: sans-serif; margin: 0; padding: 20px; padding-top: 180px;
+            text-align: center; line-height: 1.6; transition: 0.3s;
+        }
+        /* 控制列 */
+        .controls {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: var(--bg-color); padding: 10px 0;
+            border-bottom: 1px solid var(--box-border); z-index: 100;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .btn-row { display: flex; gap: 8px; justify-content: center; width: 90%; max-width: 600px; }
+        .btn {
+            background: none; border: 1px solid var(--btn-border); color: var(--text-color);
+            padding: 6px 12px; border-radius: 20px; cursor: pointer; flex: 1;
+        }
+        .btn.active { background-color: #7c4dff; color: #fff; }
+        .btn-home { background-color: #333; border-color: #555; color: #fff; flex: 0 0 auto; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 14px; padding: 0 15px;}
+        
+        /* 歌詞樣式 */
+        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
+        .line-box { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid var(--box-border); }
+        .kr { font-size: 19px; font-weight: bold; margin-bottom: 4px; }
+        .jp { color: var(--highlight-color); display: block; }
+        .en, .zh { display: none; }
+        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
+        .zh { color: var(--zh-color); font-weight: bold; }
+        .cheer { color: var(--cheer-color); font-weight: 900; text-shadow: 0 0 5px rgba(255,64,129,0.3); }
+        .section-title { margin-top: 30px; color: var(--sub-text); font-size: 14px; border-top: 2px dashed var(--box-border); padding-top: 20px; display: inline-block; }
+        .note { font-size: 12px; color: var(--cheer-color); margin-top: 5px; display: block; }
+    </style>
 </head>
 <body>
 
-    <div class="controls">
-        <div class="btn-row">
-            <a href="index.html" class="btn btn-home">⬅ 回首頁</a>
-            <h3 style="margin:0; color:#7c4dff;">S.O.S</h3>
-        </div>
-        <div class="btn-row">
-            <button class="btn" onclick="document.body.classList.toggle('dark-mode')">☀/🌙</button>
-        </div>
-        <div class="btn-row">
-            <button class="btn active" id="btn-jp" onclick="showLang('jp')">日文</button>
-            <button class="btn" id="btn-en" onclick="showLang('en')">英文</button>
-            <button class="btn" id="btn-zh" onclick="showLang('zh')">中文</button>
-        </div>
-    </div>
+    <div class="controls">
+        <div class="btn-row">
+            <a href="index.html" class="btn btn-home">⬅ 回首頁</a>
+            <h3 style="margin:0; color:#7c4dff;">S.O.S</h3>
+        </div>
+        <div class="btn-row">
+            <button class="btn" onclick="document.body.classList.toggle('light-mode')">☀/🌙</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn active" id="btn-jp" onclick="showLang('jp')">日文</button>
+            <button class="btn" id="btn-en" onclick="showLang('en')">英文</button>
+            <button class="btn" id="btn-zh" onclick="showLang('zh')">中文</button>
+        </div>
+    </div>
 
-    <div class="container">
-        <div class="line-box"><div class="kr">어떤 말이 너에게 좋을까?</div><div class="jp">オットン マリ ノエゲ チョウルッカ?</div><div class="en">Eotteon mari neoege joeulkka?</div><div class="zh">歐凍 媽裡 no-e-ge 糾烏卡?</div></div>
-        <div class="line-box"><div class="kr">숨겨왔던 내 마음이 닿을까?</div><div class="jp">スムギョワットン ネ マウミ タウルッカ?</div><div class="en">Sumgyeowatdeon nae maeumi daeulkka?</div><div class="zh">孫gyo-哇動 ne 媽屋米 塔烏卡?</div></div>
-        <div class="line-box"><div class="kr">수많은 고민 끝 하루를 시작해 <span class="cheer">(우리랑 시작해)</span></div><div class="jp">スマヌン コミン クッ ハルル シジャケ <span class="cheer">(ウリラン シジャケ)</span></div><div class="en">Sumaneun gomin kkeut harureul sijakhae <span class="cheer">(Urirang sijakhae)</span></div><div class="zh">蘇馬能 勾敏 葛 哈魯日 喜家K <span class="cheer">(屋裡郎 喜家K)</span></div></div>
+    <div class="container">
+        <div class="line-box"><div class="kr">어떤 말이 너에게 좋을까?</div><div class="jp">オットン マリ ノエゲ チョウルッカ?</div><div class="en">Eotteon mari neoege joeulkka?</div><div class="zh">歐凍 媽裡 no-e-ge 糾烏卡?</div></div>
+        <div class="line-box"><div class="kr">숨겨왔던 내 마음이 닿을까?</div><div class="jp">スムギョワットン ネ マウミ タウルッカ?</div><div class="en">Sumgyeowatdeon nae maeumi daeulkka?</div><div class="zh">孫gyo-哇動 ne 媽屋米 塔烏卡?</div></div>
+        <div class="line-box"><div class="kr">수많은 고민 끝 하루를 시작해 <span class="cheer">(우리랑 시작해)</span></div><div class="jp">スマヌン コミン クッ ハルル シジャケ <span class="cheer">(ウリラン シジャケ)</span></div><div class="en">Sumaneun gomin kkeut harureul sijakhae <span class="cheer">(Urirang sijakhae)</span></div><div class="zh">蘇馬能 勾敏 葛 哈魯日 喜家K <span class="cheer">(屋裡郎 喜家K)</span></div></div>
 
-        <div class="section-title">Verse 2</div>
-        <div class="line-box"><div class="kr">너의 마음속 난 어디쯤일까?</div><div class="jp">ノエ マウムソク ナン オディチュミルッカ?</div><div class="en">Neoui maeumsok nan eodijjeumilkka?</div><div class="zh">no-e 媽屋搜 難 偶滴珠米卡?</div></div>
-        <div class="line-box"><div class="kr">무심코 지나치진 않을까?</div><div class="jp">ムシムコ チナチジン アヌルッカ?</div><div class="en">Musimko jinachijin aneulkka?</div><div class="zh">母心口 基那七金 阿努卡?</div></div>
-        <div class="line-box"><div class="kr">별의별 걱정으로 가득 찬 밤</div><div class="jp">ピョレビョル コクチョンウロ カドゥク チャン パム</div><div class="en">Byeoruibyeol geokjeongeuro gadeuk chan bam</div><div class="zh">pyo-le-pyol 勾炯烏羅 嘎督 燦 pam</div></div>
+        <div class="section-title">Verse 2</div>
+        <div class="line-box"><div class="kr">너의 마음속 난 어디쯤일까?</div><div class="jp">ノエ マウムソク ナン オディチュミルッカ?</div><div class="en">Neoui maeumsok nan eodijjeumilkka?</div><div class="zh">no-e 媽屋搜 難 偶滴珠米卡?</div></div>
+        <div class="line-box"><div class="kr">무심코 지나치진 않을까?</div><div class="jp">ムシムコ チナチジン アヌルッカ?</div><div class="en">Musimko jinachijin aneulkka?</div><div class="zh">母心口 基那七金 阿努卡?</div></div>
+        <div class="line-box"><div class="kr">별의별 걱정으로 가득 찬 밤</div><div class="jp">ピョレビョル コクチョンウロ カドゥク チャン パム</div><div class="en">Byeoruibyeol geokjeongeuro gadeuk chan bam</div><div class="zh">pyo-le-pyol 勾炯烏羅 嘎督 燦 pam</div></div>
 
-        <div class="section-title">Pre-Chorus</div>
-        <div class="line-box"><div class="kr">새벽이 오기까지 쏟아내</div><div class="jp">セビョギ オギッカジ ソダネ</div><div class="en">Saebyeogi ogikkaji ssodanae</div><div class="zh">se-byo-gi 歐gi-嘎基 搜達ne</div></div>
-        <div class="line-box"><div class="kr">머리는 모두 비워내</div><div class="jp">モリヌン モドゥ ピウォネ</div><div class="en">Meorineun modu biwonae</div><div class="zh">摸裡能 摸度 p-wo-ne</div></div>
-        <div class="line-box"><div class="kr">근데 왜 난 고장 난 채로</div><div class="jp">クンデ ウェ ナン コジャン ナン チェロ</div><div class="en">Geunde wae nan gojang nan chaero</div><div class="zh">肯de we 難 勾張 難 che-ro</div></div>
-        <div class="line-box"><div class="kr">또 너를 생각하고 있는 건데?</div><div class="jp">ット ノルル センガカゴ インヌン コンデ?</div><div class="en">Tto neoreul saenggakhago inneun geonde?</div><div class="zh">偷 no-rur sen-ga-ka-go 飲能 功de?</div></div>
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box"><div class="kr">새벽이 오기까지 쏟아내</div><div class="jp">セビョギ オギッカジ ソダネ</div><div class="en">Saebyeogi ogikkaji ssodanae</div><div class="zh">se-byo-gi 歐gi-嘎基 搜達ne</div></div>
+        <div class="line-box"><div class="kr">머리는 모두 비워내</div><div class="jp">モリヌン モドゥ ピウォネ</div><div class="en">Meorineun modu biwonae</div><div class="zh">摸裡能 摸度 p-wo-ne</div></div>
+        <div class="line-box"><div class="kr">근데 왜 난 고장 난 채로</div><div class="jp">クンデ ウェ ナン コジャン ナン チェロ</div><div class="en">Geunde wae nan gojang nan chaero</div><div class="zh">肯de we 難 勾張 難 che-ro</div></div>
+        <div class="line-box"><div class="kr">또 너를 생각하고 있는 건데?</div><div class="jp">ット ノルル センガカゴ インヌン コンデ?</div><div class="en">Tto neoreul saenggakhago inneun geonde?</div><div class="zh">偷 no-rur sen-ga-ka-go 飲能 功de?</div></div>
 
-        <div class="section-title">Chorus</div>
-        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O! S!</span> オディエ イットゥン ネガ カルケ</div><div class="en"><span class="cheer">S! O! S!</span> Eodie itdeun naega galge</div><div class="zh"><span class="cheer">S! O! S!</span> 歐弟e 宜敦 ne-ga 嘎給</div></div>
-        <div class="line-box"><div class="kr">넌 내게 신호를 보내줘 <span class="cheer">(Wah)</span></div><div class="jp">ノン ネゲ シノルル ポネジョ <span class="cheer">(Wah)</span></div><div class="en">Neon naege sinhoreul bonaejwo <span class="cheer">(Wah)</span></div><div class="zh">弄 ne-ge 信號日 波ne-jwo <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
-        <div class="line-box"><div class="kr">금방 너를 찾을 수 있게</div><div class="jp">クムバン ノルル チャジュル ス イッケ</div><div class="en">Geumbang neoreul chajeul su itge</div><div class="zh">跟幫 no-rur 茶朱 蘇 宜給</div></div>
-        <div class="line-box"><div class="kr">대답해줘 <span class="cheer">Yes or Yes</span></div><div class="jp">テダペジョ <span class="cheer">Yes or Yes</span></div><div class="en">Daedaphaejwo <span class="cheer">Yes or Yes</span></div><div class="zh">te-da-pe-jwo <span class="cheer">Yes or Yes</span></div></div>
-        <div class="line-box"><div class="kr">더 늦기 전에 말해줄래</div><div class="jp">ト ヌッキ チョネ マレジュルレ</div><div class="en">Deo neutgi jeone malhaejullae</div><div class="zh">偷 怒基 糾內 馬he-ju-le</div></div>
-        <div class="line-box"><div class="kr">잠 못 드는 내게로 <span class="cheer">(Wah)</span></div><div class="jp">チャム モッ トゥヌン ネゲロ <span class="cheer">(Wah)</span></div><div class="en">Jam mot deuneun naegero <span class="cheer">(Wah)</span></div><div class="zh">查 mot 杜能 ne-ge-ro <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
-        <div class="line-box"><div class="kr">내 마음은 또 <span class="cheer">S.O.S</span></div><div class="jp">ネ マウムン ット <span class="cheer">S.O.S</span></div><div class="en">Nae maeumeun tto <span class="cheer">S.O.S</span></div><div class="zh">ne 媽屋悶 偷 <span class="cheer">S.O.S</span></div></div>
+        <div class="section-title">Chorus</div>
+        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O! S!</span> オディエ イットゥン ネガ カルケ</div><div class="en"><span class="cheer">S! O! S!</span> Eodie itdeun naega galge</div><div class="zh"><span class="cheer">S! O! S!</span> 歐弟e 宜敦 ne-ga 嘎給</div></div>
+        <div class="line-box"><div class="kr">넌 내게 신호를 보내줘 <span class="cheer">(Wah)</span></div><div class="jp">ノン ネゲ シノルル ポネジョ <span class="cheer">(Wah)</span></div><div class="en">Neon naege sinhoreul bonaejwo <span class="cheer">(Wah)</span></div><div class="zh">弄 ne-ge 信號日 波ne-jwo <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
+        <div class="line-box"><div class="kr">금방 너를 찾을 수 있게</div><div class="jp">クムバン ノルル チャジュル ス イッケ</div><div class="en">Geumbang neoreul chajeul su itge</div><div class="zh">跟幫 no-rur 茶朱 蘇 宜給</div></div>
+        <div class="line-box"><div class="kr">대답해줘 <span class="cheer">Yes or Yes</span></div><div class="jp">テダペジョ <span class="cheer">Yes or Yes</span></div><div class="en">Daedaphaejwo <span class="cheer">Yes or Yes</span></div><div class="zh">te-da-pe-jwo <span class="cheer">Yes or Yes</span></div></div>
+        <div class="line-box"><div class="kr">더 늦기 전에 말해줄래</div><div class="jp">ト ヌッキ チョネ マレジュルレ</div><div class="en">Deo neutgi jeone malhaejullae</div><div class="zh">偷 怒基 糾內 馬he-ju-le</div></div>
+        <div class="line-box"><div class="kr">잠 못 드는 내게로 <span class="cheer">(Wah)</span></div><div class="jp">チャム モッ トゥヌン ネゲロ <span class="cheer">(Wah)</span></div><div class="en">Jam mot deuneun naegero <span class="cheer">(Wah)</span></div><div class="zh">查 mot 杜能 ne-ge-ro <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
+        <div class="line-box"><div class="kr">내 마음은 또 <span class="cheer">S.O.S</span></div><div class="jp">ネ マウムン ット <span class="cheer">S.O.S</span></div><div class="en">Nae maeumeun tto <span class="cheer">S.O.S</span></div><div class="zh">ne 媽屋悶 偷 <span class="cheer">S.O.S</span></div></div>
 
-        <div class="section-title">Verse 3</div>
-        <div class="line-box"><div class="kr">내 폰엔 네가 좋아하는</div><div class="jp">ネ ポネン ネガ チョアハヌン</div><div class="en">Nae ponen nega joahaneun</div><div class="zh">ne po-nen ne-ga 啾哇哈能</div></div>
-        <div class="line-box"><div class="kr">음식, 장소로 가득해</div><div class="jp">ウムシク, チャンソロ カドゥケ</div><div class="en">Eumsik, jangsoro gadeukhae</div><div class="zh">溫習, チャンso-ro 嘎督K</div></div>
-        <div class="line-box"><div class="kr">내 편에 너의 시간만 서주길 바라</div><div class="jp">ネ ピョネ ノエ シガンマン ソジュギル パラ</div><div class="en">Nae pyeone neoui siganman seojugil bara</div><div class="zh">ne pyo-ne no-e 吸桿曼 搜朱gil 帕拉</div></div>
-        <div class="line-box"><div class="kr">뭐해? 란 두 글자에</div><div class="jp">モヘ? ラン トゥ クルチャエ</div><div class="en">Mwohae? ran du geuljae</div><div class="zh">摸he? 蘭 杜 谷家e</div></div>
-        <div class="line-box"><div class="kr">겉옷 챙겨 나갈 준비해</div><div class="jp">コトッ チェンギョ ナガル ジュンビヘ</div><div class="en">Geotot chaenggyeo nagal junbihae</div><div class="zh">勾偷 chen-gyo 那嘎 準備he</div></div>
-        <div class="line-box"><div class="kr">어디야? 있는 곳으로 갈게</div><div class="jp">オディヤ? インヌン ゴスロ カルケ</div><div class="en">Eodiya? inneun goseuro galge</div><div class="zh">歐弟呀? 飲能 勾死羅 嘎給</div></div>
-        <div class="line-box"><div class="kr">넌 말만 해</div><div class="jp">ノン マルマン ヘ</div><div class="en">Neon malman hae</div><div class="zh">弄 買曼 he</div></div>
+        <div class="section-title">Verse 3</div>
+        <div class="line-box"><div class="kr">내 폰엔 네가 좋아하는</div><div class="jp">ネ ポネン ネガ チョアハヌン</div><div class="en">Nae ponen nega joahaneun</div><div class="zh">ne po-nen ne-ga 啾哇哈能</div></div>
+        <div class="line-box"><div class="kr">음식, 장소로 가득해</div><div class="jp">ウムシク, チャンソロ カドゥケ</div><div class="en">Eumsik, jangsoro gadeukhae</div><div class="zh">溫習, チャンso-ro 嘎督K</div></div>
+        <div class="line-box"><div class="kr">내 편에 너의 시간만 서주길 바라</div><div class="jp">ネ ピョネ ノエ シガンマン ソジュギル パラ</div><div class="en">Nae pyeone neoui siganman seojugil bara</div><div class="zh">ne pyo-ne no-e 吸桿曼 搜朱gil 帕拉</div></div>
+        <div class="line-box"><div class="kr">뭐해? 란 두 글자에</div><div class="jp">モヘ? ラン トゥ クルチャエ</div><div class="en">Mwohae? ran du geuljae</div><div class="zh">摸he? 蘭 杜 谷家e</div></div>
+        <div class="line-box"><div class="kr">겉옷 챙겨 나갈 준비해</div><div class="jp">コトッ チェンギョ ナガル ジュンビヘ</div><div class="en">Geotot chaenggyeo nagal junbihae</div><div class="zh">勾偷 chen-gyo 那嘎 準備he</div></div>
+        <div class="line-box"><div class="kr">어디야? 있는 곳으로 갈게</div><div class="jp">オディヤ? インヌン ゴスロ カルケ</div><div class="en">Eodiya? inneun goseuro galge</div><div class="zh">歐弟呀? 飲能 勾死羅 嘎給</div></div>
+        <div class="line-box"><div class="kr">넌 말만 해</div><div class="jp">ノン マルマン ヘ</div><div class="en">Neon malman hae</div><div class="zh">弄 買曼 he</div></div>
 
-        <div class="section-title">Pre-Chorus 2</div>
-        <div class="line-box"><div class="kr">하나둘 쌓여가 Bucket list</div><div class="jp">ハナドゥル サヨガ Bucket list</div><div class="en">Hanadul ssayeoga Bucket list</div><div class="zh">哈那杜 薩優嘎 Bucket list</div></div>
-        <div class="line-box"><div class="kr">내가 봐도 우린 닮은 듯 비슷해</div><div class="jp">ネガ バド ウリン タルムン ドゥッ ピステ</div><div class="en">Naega bwado urin dalmeun deut biseuthae</div><div class="zh">ne-ga 八多 屋林 塔悶 du 逼死te</div></div>
-        <div class="line-box"><div class="kr">비 갠 뒤 하늘 색깔은 Blue</div><div class="jp">ピ ゲン ドゥイ ハヌル セッカルン Blue</div><div class="en">Bi gaen dwi haneul saekkkareun Blue</div><div class="zh">逼 gen dwi 哈努 se-嘎能 Blue</div></div>
-        <div class="line-box"><div class="kr">네가 불러 주는 이름을 난 좋아해 <span class="cheer">(문!별!이!)</span></div><div class="jp">ネガ プルロ ジュヌン イルムル ナン チョアヘ <span class="cheer">(ムン！ビョ！リ！)</span></div><div class="en">Nega bulleo juneun ireumeul nan joahae <span class="cheer">(Moon! Byul! Yi!)</span></div><div class="zh">ne-ga 噗羅 朱能 宜入木 難 啾哇he <span class="cheer">(文！星！伊！)</span></div></div>
+        <div class="section-title">Pre-Chorus 2</div>
+        <div class="line-box"><div class="kr">하나둘 쌓여가 Bucket list</div><div class="jp">ハナドゥル サヨガ Bucket list</div><div class="en">Hanadul ssayeoga Bucket list</div><div class="zh">哈那杜 薩優嘎 Bucket list</div></div>
+        <div class="line-box"><div class="kr">내가 봐도 우린 닮은 듯 비슷해</div><div class="jp">ネガ バド ウリン タルムン ドゥッ ピステ</div><div class="en">Naega bwado urin dalmeun deut biseuthae</div><div class="zh">ne-ga 八多 屋林 塔悶 du 逼死te</div></div>
+        <div class="line-box"><div class="kr">비 갠 뒤 하늘 색깔은 Blue</div><div class="jp">ピ ゲン ドゥイ ハヌル セッカルン Blue</div><div class="en">Bi gaen dwi haneul saekkkareun Blue</div><div class="zh">逼 gen dwi 哈努 se-嘎能 Blue</div></div>
+        <div class="line-box"><div class="kr">네가 불러 주는 이름을 난 좋아해 <span class="cheer">(문!별!이!)</span></div><div class="jp">ネガ プルロ ジュヌン イルムル ナン チョアヘ <span class="cheer">(ムン！ビョ！リ！)</span></div><div class="en">Nega bulleo juneun ireumeul nan joahae <span class="cheer">(Moon! Byul! Yi!)</span></div><div class="zh">ne-ga 噗羅 朱能 宜入木 難 啾哇he <span class="cheer">(文！星！伊！)</span></div></div>
 
-        <div class="section-title">Chorus</div>
-        <div class="line-box" style="color:var(--sub-text); border:none;">(重複 Chorus)</div>
+        <div class="section-title">Chorus</div>
+        <div class="line-box" style="color:var(--sub-text); border:none;">(重複 Chorus)</div>
 
-        <div class="section-title">Bridge</div>
-        <div class="line-box"><div class="kr"><span class="cheer">Far away</span> 저 멀리 <span class="cheer">If so, fly</span></div><div class="jp"><span class="cheer">Far away</span> チョ モルリ <span class="cheer">If so, fly</span></div><div class="en"><span class="cheer">Far away</span> jeo meolli <span class="cheer">If so, fly</span></div><div class="zh"><span class="cheer">Far away</span> 周 摸裡 <span class="cheer">If so, fly</span></div></div>
-        <div class="line-box"><div class="kr">꼭 바라왔던 소원을 속삭여</div><div class="jp">ッコク パラワットン ソウォヌル ソクサギョ</div><div class="en">Kkok barawatdeon sowoneul soksagyeo</div><div class="zh">gok 帕拉哇洞 搜翁努 搜撒gyo</div></div>
-        <div class="line-box"><div class="kr">서로의 마음을 이어줘</div><div class="jp">ソロエ マウムル イオジョ</div><div class="en">Seoroui maeumeul ieojwo</div><div class="zh">搜羅e 媽屋木 宜歐jwo</div></div>
-        <div class="line-box"><div class="kr">그대로 미소 지어줘</div><div class="jp">クデロ ミソ チオジョ</div><div class="en">Geudaero miso jieojwo</div><div class="zh">ke-de-ro 米搜 基歐jwo</div></div>
-        <div class="line-box"><div class="kr">하얗게 바래진 빈 공간을</div><div class="jp">ハヤケ パレジン ピン コンガヌル</div><div class="en">Hayake baraejin bin gongganeul</div><div class="zh">哈呀K 帕雷金 pin 空桿努</div></div>
-        <div class="line-box"><div class="kr">너와 나 둘이 가득 채우고 싶어</div><div class="jp">ノワ ナ トゥリ カドゥク チェウゴ シポ</div><div class="en">Neowa na duri gadeuk chaeugo sipeo</div><div class="zh">no-wa 那 杜裡 嘎督 che-烏勾 喜po</div></div>
+        <div class="section-title">Bridge</div>
+        <div class="line-box"><div class="kr"><span class="cheer">Far away</span> 저 멀리 <span class="cheer">If so, fly</span></div><div class="jp"><span class="cheer">Far away</span> チョ モルリ <span class="cheer">If so, fly</span></div><div class="en"><span class="cheer">Far away</span> jeo meolli <span class="cheer">If so, fly</span></div><div class="zh"><span class="cheer">Far away</span> 周 摸裡 <span class="cheer">If so, fly</span></div></div>
+        <div class="line-box"><div class="kr">꼭 바라왔던 소원을 속삭여</div><div class="jp">ッコク パラワットン ソウォヌル ソクサギョ</div><div class="en">Kkok barawatdeon sowoneul soksagyeo</div><div class="zh">gok 帕拉哇洞 搜翁努 搜撒gyo</div></div>
+        <div class="line-box"><div class="kr">서로의 마음을 이어줘</div><div class="jp">ソロエ マウムル イオジョ</div><div class="en">Seoroui maeumeul ieojwo</div><div class="zh">搜羅e 媽屋木 宜歐jwo</div></div>
+        <div class="line-box"><div class="kr">그대로 미소 지어줘</div><div class="jp">クデロ ミソ チオジョ</div><div class="en">Geudaero miso jieojwo</div><div class="zh">ke-de-ro 米搜 基歐jwo</div></div>
+        <div class="line-box"><div class="kr">하얗게 바래진 빈 공간을</div><div class="jp">ハヤケ パレジン ピン コンガヌル</div><div class="en">Hayake baraejin bin gongganeul</div><div class="zh">哈呀K 帕雷金 pin 空桿努</div></div>
+        <div class="line-box"><div class="kr">너와 나 둘이 가득 채우고 싶어</div><div class="jp">ノワ ナ トゥリ カドゥク チェウゴ シポ</div><div class="en">Neowa na duri gadeuk chaeugo sipeo</div><div class="zh">no-wa 那 杜裡 嘎督 che-烏勾 喜po</div></div>
 
-        <div class="section-title">Chorus</div>
-        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O! S!</span> オディエ イットゥン ネガ カルケ</div><div class="en"><span class="cheer">S! O! S!</span> Eodie itdeun naega galge</div><div class="zh"><span class="cheer">S! O! S!</span> 歐弟e 宜敦 ne-ga 嘎給</div></div>
-        <div class="line-box"><div class="kr">넌 내게 신호를 보내줘 <span class="cheer">(Wah)</span></div><div class="jp">ノン ネゲ シノルル ポネジョ <span class="cheer">(Wah)</span></div><div class="en">Neon naege sinhoreul bonaejwo <span class="cheer">(Wah)</span></div><div class="zh">弄 ne-ge 信號日 波ne-jwo <span class="cheer">(Wah)</span></div></div>
-        <div class="line-box"><div class="kr">금방 너를 찾을 수 있게</div><div class="jp">クムバン ノルル チャジュル ス イッケ</div><div class="en">Geumbang neoreul chajeul su itge</div><div class="zh">跟幫 no-rur 茶朱 蘇 宜給</div></div>
-        <div class="line-box"><div class="kr">대답해줘 <span class="cheer">Yes or Yes</span></div><div class="jp">テダペジョ <span class="cheer">Yes or Yes</span></div><div class="en">Daedaphaejwo <span class="cheer">Yes or Yes</span></div><div class="zh">te-da-pe-jwo <span class="cheer">Yes or Yes</span></div></div>
-        <div class="line-box"><div class="kr">더 늦기 전에 말해줄래</div><div class="jp">ト ヌッキ チョネ マレジュルレ</div><div class="en">Deo neutgi jeone malhaejullae</div><div class="zh">偷 怒基 糾內 馬he-ju-le</div></div>
-        <div class="line-box"><div class="kr">잠 못 드는 내게로 <span class="cheer">(Wah)</span></div><div class="jp">チャム モッ トゥヌン ネゲロ <span class="cheer">(Wah)</span></div><div class="en">Jam mot deuneun naegero <span class="cheer">(Wah)</span></div><div class="zh">查 mot 杜能 ne-ge-ro <span class="cheer">(Wah)</span></div></div>
-        <div class="line-box"><div class="kr">내 마음은 넌 <span class="cheer">S.O.S</span></div><div class="jp">ネ マウムン ノン <span class="cheer">S.O.S</span></div><div class="en">Nae maeumeun neon <span class="cheer">S.O.S</span></div><div class="zh">ne 媽屋悶 弄 <span class="cheer">S.O.S</span></div></div>
+        <div class="section-title">Chorus</div>
+        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O! S!</span> オディエ イットゥン ネガ カルケ</div><div class="en"><span class="cheer">S! O! S!</span> Eodie itdeun naega galge</div><div class="zh"><span class="cheer">S! O! S!</span> 歐弟e 宜敦 ne-ga 嘎給</div></div>
+        <div class="line-box"><div class="kr">넌 내게 신호를 보내줘 <span class="cheer">(Wah)</span></div><div class="jp">ノン ネゲ シノルル ポネジョ <span class="cheer">(Wah)</span></div><div class="en">Neon naege sinhoreul bonaejwo <span class="cheer">(Wah)</span></div><div class="zh">弄 ne-ge 信號日 波ne-jwo <span class="cheer">(Wah)</span></div></div>
+        <div class="line-box"><div class="kr">금방 너를 찾을 수 있게</div><div class="jp">クムバン ノルル チャジュル ス イッケ</div><div class="en">Geumbang neoreul chajeul su itge</div><div class="zh">跟幫 no-rur 茶朱 蘇 宜給</div></div>
+        <div class="line-box"><div class="kr">대답해줘 <span class="cheer">Yes or Yes</span></div><div class="jp">テダペジョ <span class="cheer">Yes or Yes</span></div><div class="en">Daedaphaejwo <span class="cheer">Yes or Yes</span></div><div class="zh">te-da-pe-jwo <span class="cheer">Yes or Yes</span></div></div>
+        <div class="line-box"><div class="kr">더 늦기 전에 말해줄래</div><div class="jp">ト ヌッキ チョネ マレジュルレ</div><div class="en">Deo neutgi jeone malhaejullae</div><div class="zh">偷 怒基 糾內 馬he-ju-le</div></div>
+        <div class="line-box"><div class="kr">잠 못 드는 내게로 <span class="cheer">(Wah)</span></div><div class="jp">チャム モッ トゥヌン ネゲロ <span class="cheer">(Wah)</span></div><div class="en">Jam mot deuneun naegero <span class="cheer">(Wah)</span></div><div class="zh">查 mot 杜能 ne-ge-ro <span class="cheer">(Wah)</span></div></div>
+        <div class="line-box"><div class="kr">내 마음은 넌 <span class="cheer">S.O.S</span></div><div class="jp">ネ マウムン ノン <span class="cheer">S.O.S</span></div><div class="en">Nae maeumeun neon <span class="cheer">S.O.S</span></div><div class="zh">ne 媽屋悶 弄 <span class="cheer">S.O.S</span></div></div>
 
-        <div class="section-title">Outro</div>
-        <div class="line-box"><div class="kr">난 네게로</div><div class="jp">ナン ネゲロ</div><div class="en">Nan negero</div><div class="zh">難 ne-ge-ro</div></div>
-        <div class="line-box"><div class="kr">Yes or Yes 대답해줘</div><div class="jp">Yes or Yes テダペジョ</div><div class="en">Yes or Yes Daedaphaejwo</div><div class="zh">Yes or Yes te-da-pe-jwo</div></div>
-        <div class="line-box"><div class="kr">또 <span class="cheer">S.O.S</span></div><div class="jp">ット <span class="cheer">S.O.S</span></div><div class="en">Tto <span class="cheer">S.O.S</span></div><div class="zh">偷 <span class="cheer">S.O.S</span></div></div>
-        
-        <div class="line-box" style="border: 2px solid var(--cheer-color); border-radius: 10px; margin-top: 20px;">
-            <div class="kr"><span class="cheer">별! 똥별! 크! 로스!</span></div>
-            <div class="jp"><span class="cheer">ビョル！ トンビョル！ クロス！</span></div>
-            <div class="en"><span class="cheer">Byeol! Ttong-byeol! Cross!</span></div>
-            <div class="zh"><span class="cheer">星！ 流星！ Cross！</span></div>
-            <span class="note">⚠️ 最後的 Pose!</span>
-        </div>
-        <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
-    </div>
+        <div class="section-title">Outro</div>
+        <div class="line-box"><div class="kr">난 네게로</div><div class="jp">ナン ネゲロ</div><div class="en">Nan negero</div><div class="zh">難 ne-ge-ro</div></div>
+        <div class="line-box"><div class="kr">Yes or Yes 대답해줘</div><div class="jp">Yes or Yes テダペジョ</div><div class="en">Yes or Yes Daedaphaejwo</div><div class="zh">Yes or Yes te-da-pe-jwo</div></div>
+        <div class="line-box"><div class="kr">또 <span class="cheer">S.O.S</span></div><div class="jp">ット <span class="cheer">S.O.S</span></div><div class="en">Tto <span class="cheer">S.O.S</span></div><div class="zh">偷 <span class="cheer">S.O.S</span></div></div>
+        
+        <div class="line-box" style="border: 2px solid var(--cheer-color); border-radius: 10px; margin-top: 20px;">
+            <div class="kr"><span class="cheer">별! 똥별! 크! 로스!</span></div>
+            <div class="jp"><span class="cheer">ビョル！ トンビョル！ クロス！</span></div>
+            <div class="en"><span class="cheer">Byeol! Ttong-byeol! Cross!</span></div>
+            <div class="zh"><span class="cheer">星！ 流星！ Cross！</span></div>
+            <span class="note">⚠️ 最後的 Pose!</span>
+        </div>
+        <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
+    </div>
 
-    <script>
-        function showLang(lang) {
-            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
-            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
-        }
-    </script>
+    <script>
+        function showLang(lang) {
+            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
 </body>
 </html>
+
+
+幫我改成預設為亮色的
