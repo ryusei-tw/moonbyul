@@ -19,30 +19,24 @@ const songs = [
 ];
 
 // ==========================================
-// 1. 自動注入 App 設定 (讓它像 App 一樣全螢幕)
+// 1. 自動注入 App 設定 (PWA & iOS)
 // ==========================================
 function injectAppMeta() {
     if (!document.head) return;
     
-    // 連結 manifest
+    // PWA Manifest
     const linkManifest = document.createElement('link');
     linkManifest.rel = 'manifest';
     linkManifest.href = 'manifest.json';
     document.head.appendChild(linkManifest);
 
-    // iOS 全螢幕設定
+    // iOS Web App Capable
     const metaApple = document.createElement('meta');
     metaApple.name = 'apple-mobile-web-app-capable';
     metaApple.content = 'yes';
     document.head.appendChild(metaApple);
 
-    // iOS 狀態列顏色 (透明黑)
-    const metaStatus = document.createElement('meta');
-    metaStatus.name = 'apple-mobile-web-app-status-bar-style';
-    metaStatus.content = 'black-translucent';
-    document.head.appendChild(metaStatus);
-
-    // iOS 圖示
+    // iOS Icon
     const linkIcon = document.createElement('link');
     linkIcon.rel = 'apple-touch-icon';
     linkIcon.href = 'icon.png';
@@ -51,7 +45,33 @@ function injectAppMeta() {
 injectAppMeta();
 
 // ==========================================
-// 2. 產生選單 HTML
+// 2. 自動加入「回首頁」按鈕 (新增功能 ✨)
+// ==========================================
+function addHomeButton() {
+    // 取得目前的檔名
+    const currentFile = window.location.pathname.split("/").pop();
+    
+    // 如果目前「不是」首頁 (index.html 或 空白)，才加入按鈕
+    if (currentFile !== "index.html" && currentFile !== "") {
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) {
+            // 建立按鈕 HTML
+            const homeBtnHtml = `
+                <a href="index.html" class="home-btn" style="text-decoration: none; margin-right: auto;">
+                    <span style="font-size: 20px; filter: grayscale(1);">🏠</span>
+                </a>
+            `;
+            // 插入到 Top Bar 的最前面
+            topBar.insertAdjacentHTML('afterbegin', homeBtnHtml);
+        }
+    }
+}
+// 等網頁載入後執行
+document.addEventListener('DOMContentLoaded', addHomeButton);
+
+
+// ==========================================
+// 3. 產生選單 HTML
 // ==========================================
 const currentPath = window.location.pathname.split("/").pop(); 
 let menuItemsHTML = "";
@@ -95,15 +115,10 @@ document.addEventListener('click', function(event) {
 });
 
 // ==========================================
-// 3. 🛡️ 強力防複製 & App 質感優化 CSS
+// 4. 🛡️ 強力防複製 & CSS 優化
 // ==========================================
 
-// 禁止滑鼠右鍵
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-}, false);
-
-// 禁止鍵盤快捷鍵
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
 document.addEventListener('keydown', function(e) {
     if (e.key === 'F12' || (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'p'))) {
         e.preventDefault();
@@ -111,7 +126,6 @@ document.addEventListener('keydown', function(e) {
     }
 }, false);
 
-// 注入 CSS (包含防複製 + 禁止手機回彈效果)
 const styleSheet = document.createElement("style");
 styleSheet.innerHTML = `
     * {
@@ -119,18 +133,26 @@ styleSheet.innerHTML = `
         -moz-user-select: none !important;
         -ms-user-select: none !important;
         user-select: none !important;
-        -webkit-touch-callout: none !important; /* 禁止 iOS 長按選單 */
-        -webkit-tap-highlight-color: transparent; /* 移除點擊藍框 */
+        -webkit-touch-callout: none !important;
+        -webkit-tap-highlight-color: transparent;
     }
+    body { overscroll-behavior-y: none; }
+    input, textarea { -webkit-user-select: text !important; user-select: text !important; }
     
-    /* 讓整個網頁滑動起來像 App，不會有彈性拉動的空白 */
-    body {
-        overscroll-behavior-y: none;
+    /* 回首頁按鈕樣式 */
+    .home-btn {
+        padding: 8px;
+        border-radius: 50%;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    input, textarea {
-        -webkit-user-select: text !important;
-        user-select: text !important;
+    .home-btn:hover {
+        background-color: rgba(0,0,0,0.05);
+    }
+    body.dark-mode .home-btn:hover {
+        background-color: rgba(255,255,255,0.1);
     }
 `;
 document.head.appendChild(styleSheet);
