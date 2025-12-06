@@ -14,12 +14,9 @@ const songs = [
     { title: "Memories", file: "memories.html", icon: "🎞️" },
     { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
     // ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
-    // { title: "新歌名", file: "新檔案.html", icon: "🎵" },
 ];
 
-// --- 以下程式碼不用動 ---
-
-// 1. 產生選單 HTML
+// --- 1. 產生選單 HTML ---
 const currentPath = window.location.pathname.split("/").pop(); // 取得目前檔名
 let menuItemsHTML = "";
 
@@ -44,11 +41,14 @@ const menuHTML = `
 `;
 
 // 2. 將選單插入網頁底部
-document.body.insertAdjacentHTML('beforeend', menuHTML);
+if (document.body) {
+    document.body.insertAdjacentHTML('beforeend', menuHTML);
+}
 
 // 3. 選單開關功能
 function toggleMenu() {
-    document.getElementById('songMenu').classList.toggle('open');
+    const menu = document.getElementById('songMenu');
+    if (menu) menu.classList.toggle('open');
 }
 
 // 4. 點擊外部關閉選單
@@ -60,3 +60,41 @@ document.addEventListener('click', function(event) {
         menu.classList.remove('open');
     }
 });
+
+// ==========================================
+// 🛡️ 防複製保護機制 (保護你的心血)
+// ==========================================
+
+// 1. 禁止滑鼠右鍵
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// 2. 禁止鍵盤快捷鍵 (Ctrl+C, Ctrl+U, F12 等)
+document.addEventListener('keydown', function(e) {
+    // 擋住 F12
+    if (e.key === 'F12') {
+        e.preventDefault();
+    }
+    // 擋住 Ctrl 組合鍵
+    if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'p')) {
+        e.preventDefault();
+    }
+});
+
+// 3. 透過 CSS 禁止選取文字 (注入樣式)
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `
+    body {
+        -webkit-user-select: none; /* Chrome/Safari */
+        -moz-user-select: none;    /* Firefox */
+        -ms-user-select: none;     /* IE/Edge */
+        user-select: none;         /* 標準語法 */
+    }
+    /* 讓輸入框還是可以打字 (如果有輸入框的話) */
+    input, textarea {
+        -webkit-user-select: auto;
+        user-select: auto;
+    }
+`;
+document.head.appendChild(styleSheet);
