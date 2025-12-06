@@ -5,85 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.O.S - Moon Byul</title>
     <style>
-        /* --- 1. 這裡改成預設亮色 (Light Mode) --- */
+        /* --- [laundri] 專輯配色 --- */
         :root {
-            --bg-color: #f5f5f5;        /* 亮背景 */
-            --text-color: #333333;      /* 深字體 */
-            --highlight-color: #d32f2f; /* 日文 (深紅) */
-            --eng-color: #2e7d32;       /* 英文 (深綠) */
-            --zh-color: #e65100;        /* 中文 (深橘) */
-            --cheer-color: #ff005d;     /* 應援色 (深粉紅) */
-            --box-border: #ccc;
-            --sub-text: #666;
-            --btn-border: #7c4dff;
+            --bg-color: #f0f4f8;       /* 淺灰藍 */
+            --text-color: #2d3436;     /* 深灰 */
+            --bar-bg: rgba(255, 255, 255, 0.90);
+            --accent: #FF6B35;         /* 活力橙 */
+            --fab-bg: #4DA1FF;         /* 天空藍 */
+            --fab-text: #ffffff;
+            --menu-bg: #ffffff;
+            --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
+            /* 語言顏色 */
+            --highlight-color: #d32f2f; /* 日 (紅) */
+            --eng-color: #2e7d32;       /* 英 (綠) */
+            --zh-color: #e65100;        /* 中 (橘) */
         }
-
-        /* --- 2. 這裡改成切換後的深色模式 (Dark Mode) --- */
         body.dark-mode {
-            --bg-color: #121212;        /* 深背景 */
-            --text-color: #ffffff;      /* 白字體 */
-            --highlight-color: #ffeb3b; /* 日文 (黃) */
-            --eng-color: #69f0ae;       /* 英文 (螢光綠) */
-            --zh-color: #ffab91;        /* 中文 (淺橘) */
-            --cheer-color: #ff80ab;     /* 應援色 (粉紅) */
-            --box-border: #333;
-            --sub-text: #888;
+            --bg-color: #101820;       /* 深丹寧 */
+            --text-color: #dfe6e9;     /* 灰白 */
+            --bar-bg: rgba(16, 24, 32, 0.95);
+            --accent: #FF9F43;
+            --fab-bg: #2e86de;
+            --fab-text: #ffffff;
+            --menu-bg: #1e272e;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* 深色模式下的語言顏色 */
+            --highlight-color: #ffeb3b;
+            --eng-color: #69f0ae;
+            --zh-color: #ffab91;
         }
-
         body {
             background-color: var(--bg-color); color: var(--text-color);
-            font-family: sans-serif; margin: 0; padding: 20px; padding-top: 180px;
-            text-align: center; line-height: 1.6; transition: 0.3s;
+            font-family: -apple-system, sans-serif;
+            margin: 0; padding: 0; transition: 0.4s ease;
+            padding-bottom: 120px; padding-top: 80px; 
         }
+
+        /* 頂部列 */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background-color: var(--bar-bg); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .theme-toggle { font-size: 22px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .lang-chips { display: flex; gap: 6px; background-color: rgba(0,0,0,0.03); padding: 4px; border-radius: 30px; }
+        .chip {
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; color: var(--text-color); opacity: 0.6;
+        }
+        .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+        /* 內容區 */
+        .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
         
-        /* 控制列 */
-        .controls {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background-color: var(--bg-color); padding: 10px 0;
-            border-bottom: 1px solid var(--box-border); z-index: 100;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            transition: background-color 0.3s;
+        .line-box { 
+            margin-bottom: 24px; padding: 16px;
+            background: rgba(255,255,255,0.5); border-radius: 16px;
         }
-        .btn-row { display: flex; gap: 8px; justify-content: center; width: 90%; max-width: 600px; }
-        .btn {
-            background: none; border: 1px solid var(--btn-border); color: var(--text-color);
-            padding: 6px 12px; border-radius: 20px; cursor: pointer; flex: 1;
-            transition: color 0.3s;
-        }
-        .btn.active { background-color: #7c4dff; color: #fff; }
-        .btn-home { background-color: #333; border-color: #555; color: #fff; flex: 0 0 auto; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 14px; padding: 0 15px;}
-        
-        /* 歌詞樣式 */
-        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
-        .line-box { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid var(--box-border); }
-        .kr { font-size: 19px; font-weight: bold; margin-bottom: 4px; }
+        body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
+
+        .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
+        /* 語言切換邏輯 */
         .jp { color: var(--highlight-color); display: block; }
         .en, .zh { display: none; }
         .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
         .zh { color: var(--zh-color); font-weight: bold; }
-        .cheer { color: var(--cheer-color); font-weight: 900; text-shadow: 0 0 5px rgba(255,64,129,0.3); }
-        .section-title { margin-top: 30px; color: var(--sub-text); font-size: 14px; border-top: 2px dashed var(--box-border); padding-top: 20px; display: inline-block; }
-        .note { font-size: 12px; color: var(--cheer-color); margin-top: 5px; display: block; }
+        
+        .cheer { color: var(--accent); font-weight: 900; margin-left: 8px; display: inline-block;}
+        .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
+        .section-title { margin-top: 30px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 15px;}
+
+        /* FAB & Menu */
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: var(--fab-text);
+            border: none; box-shadow: var(--shadow); font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .fab-btn:active { transform: scale(0.9); }
+        
+        .song-menu {
+            position: absolute; bottom: 80px; left: 0;
+            background-color: var(--menu-bg); border-radius: 24px;
+            width: 220px; padding: 8px; box-shadow: var(--shadow);
+            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
+            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .menu-header { font-size: 12px; opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
+        .menu-item {
+            display: flex; align-items: center; padding: 14px 16px;
+            color: var(--text-color); text-decoration: none; border-radius: 16px;
+            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
+        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
+        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
+        .menu-item span { margin-right: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="controls">
-        <div class="btn-row">
-            <a href="index.html" class="btn btn-home">⬅ 回首頁</a>
-            <h3 style="margin:0; color:#7c4dff;">S.O.S</h3>
-        </div>
-        <div class="btn-row">
-            <button class="btn" onclick="toggleTheme()">☀/🌙</button>
-        </div>
-        <div class="btn-row">
-            <button class="btn active" id="btn-jp" onclick="showLang('jp')">日文</button>
-            <button class="btn" id="btn-en" onclick="showLang('en')">英文</button>
-            <button class="btn" id="btn-zh" onclick="showLang('zh')">中文</button>
+    <div class="top-bar">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <div class="lang-chips">
+            <div class="chip active" id="btn-jp" onclick="showLang('jp')">日</div>
+            <div class="chip" id="btn-en" onclick="showLang('en')">英</div>
+            <div class="chip" id="btn-zh" onclick="showLang('zh')">中</div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="content">
+        <h2 class="song-title">S.O.S</h2>
+
         <div class="line-box"><div class="kr">어떤 말이 너에게 좋을까?</div><div class="jp">オットン マリ ノエゲ チョウルッカ?</div><div class="en">Eotteon mari neoege joeulkka?</div><div class="zh">歐凍 媽裡 no-e-ge 糾烏卡?</div></div>
         <div class="line-box"><div class="kr">숨겨왔던 내 마음이 닿을까?</div><div class="jp">スムギョワットン ネ マウミ タウルッカ?</div><div class="en">Sumgyeowatdeon nae maeumi daeulkka?</div><div class="zh">孫gyo-哇動 ne 媽屋米 塔烏卡?</div></div>
         <div class="line-box"><div class="kr">수많은 고민 끝 하루를 시작해 <span class="cheer">(우리랑 시작해)</span></div><div class="jp">スマヌン コミン クッ ハルル シジャケ <span class="cheer">(ウリラン シジャケ)</span></div><div class="en">Sumaneun gomin kkeut harureul sijakhae <span class="cheer">(Urirang sijakhae)</span></div><div class="zh">蘇馬能 勾敏 葛 哈魯日 喜家K <span class="cheer">(屋裡郎 喜家K)</span></div></div>
@@ -93,11 +131,61 @@
         <div class="line-box"><div class="kr">무심코 지나치진 않을까?</div><div class="jp">ムシムコ チナチジン アヌルッカ?</div><div class="en">Musimko jinachijin aneulkka?</div><div class="zh">母心口 基那七金 阿努卡?</div></div>
         <div class="line-box"><div class="kr">별의별 걱정으로 가득 찬 밤</div><div class="jp">ピョレビョル コクチョンウロ カドゥク チャン パム</div><div class="en">Byeoruibyeol geokjeongeuro gadeuk chan bam</div><div class="zh">pyo-le-pyol 勾炯烏羅 嘎督 燦 pam</div></div>
 
-        <div class="section-title">Pre-Chorus</div>
-        <div class="line-box"><div class="kr">새벽이 오기까지 쏟아내</div><div class="jp">セビョギ オギッカジ ソダネ</div><div class="en">Saebyeogi ogikkaji ssodanae</div><div class="zh">se-byo-gi 歐gi-嘎基 搜達ne</div></div>
-        <div class="line-box"><div class="kr">머리는 모두 비워내</div><div class="jp">モリヌン モドゥ ピウォネ</div><div class="en">Meorineun modu biwonae</div><div class="zh">摸裡能 摸度 p-wo-ne</div></div>
-        <div class="line-box"><div class="kr">근데 왜 난 고장 난 채로</div><div class="jp">クンデ ウェ ナン コジャン ナン チェロ</div><div class="en">Geunde wae nan gojang nan chaero</div><div class="zh">肯de we 難 勾張 難 che-ro</div></div>
-        <div class="line-box"><div class="kr">또 너를 생각하고 있는 건데?</div><div class="jp">ット ノルル センガカゴ インヌン コンデ?</div><div class="en">Tto neoreul saenggakhago inneun geonde?</div><div class="zh">偷 no-rur sen-ga-ka-go 飲能 功de?</div></div>
-
         <div class="section-title">Chorus</div>
-        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O
+        <div class="line-box"><div class="kr"><span class="cheer">S! O! S!</span> 어디에 있든 내가 갈게</div><div class="jp"><span class="cheer">S! O! S!</span> オディエ イットゥン ネガ カルケ</div><div class="en"><span class="cheer">S! O! S!</span> Eodie itdeun naega galge</div><div class="zh"><span class="cheer">S! O! S!</span> 歐弟e 宜敦 ne-ga 嘎給</div></div>
+        <div class="line-box"><div class="kr">넌 내게 신호를 보내줘 <span class="cheer">(Wah)</span></div><div class="jp">ノン ネゲ シノルル ポネジョ <span class="cheer">(Wah)</span></div><div class="en">Neon naege sinhoreul bonaejwo <span class="cheer">(Wah)</span></div><div class="zh">弄 ne-ge 信號日 波ne-jwo <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
+        <div class="line-box"><div class="kr">금방 너를 찾을 수 있게</div><div class="jp">クムバン ノルル チャジュル ス イッケ</div><div class="en">Geumbang neoreul chajeul su itge</div><div class="zh">跟幫 no-rur 茶朱 蘇 宜給</div></div>
+        <div class="line-box"><div class="kr">대답해줘 <span class="cheer">Yes or Yes</span></div><div class="jp">テダペジョ <span class="cheer">Yes or Yes</span></div><div class="en">Daedaphaejwo <span class="cheer">Yes or Yes</span></div><div class="zh">te-da-pe-jwo <span class="cheer">Yes or Yes</span></div></div>
+        <div class="line-box"><div class="kr">더 늦기 전에 말해줄래</div><div class="jp">ト ヌッキ チョネ マレジュルレ</div><div class="en">Deo neutgi jeone malhaejullae</div><div class="zh">偷 怒基 糾內 馬he-ju-le</div></div>
+        <div class="line-box"><div class="kr">잠 못 드는 내게로 <span class="cheer">(Wah)</span></div><div class="jp">チャム モッ トゥヌン ネゲロ <span class="cheer">(Wah)</span></div><div class="en">Jam mot deuneun naegero <span class="cheer">(Wah)</span></div><div class="zh">查 mot 杜能 ne-ge-ro <span class="cheer">(Wah)</span></div><span class="note">⚠️ 應援棒向右甩 3 次</span></div>
+        <div class="line-box"><div class="kr">내 마음은 또 <span class="cheer">S.O.S</span></div><div class="jp">ネ マウムン ット <span class="cheer">S.O.S</span></div><div class="en">Nae maeumeun tto <span class="cheer">S.O.S</span></div><div class="zh">ne 媽屋悶 偷 <span class="cheer">S.O.S</span></div></div>
+
+        <div class="section-title">Outro</div>
+        <div class="line-box"><div class="kr">완벽한 <span class="cheer">Goodbye</span></div><div class="jp">ワンビョカン <span class="cheer">Goodbye</span></div><div class="en">Wanbyeokhan <span class="cheer">Goodbye</span></div><div class="zh">萬pyo-坎 <span class="cheer">Goodbye</span></div></div>
+        <div class="line-box" style="border: 2px solid var(--accent); border-radius: 16px;">
+            <div class="kr"><span class="cheer">별! 똥별! 크! 로스!</span></div>
+            <div class="jp"><span class="cheer">ビョル！ トンビョル！ クロス！</span></div>
+            <div class="en"><span class="cheer">Byeol! Ttong-byeol! Cross!</span></div>
+            <div class="zh"><span class="cheer">星！ 流星！ Cross！</span></div>
+            <span class="note">⚠️ 最後的 Pose!</span>
+        </div>
+        <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
+    </div>
+
+    <div class="fab-container">
+        <div class="song-menu" id="songMenu">
+            <div class="menu-header">Playlist</div>
+            <a href="sos.html" class="menu-item active"><span>💿</span> S.O.S</a>
+            <a href="goodbyes.html" class="menu-item"><span>🫧</span> Goodbyes...</a>
+        </div>
+        <button class="fab-btn" onclick="toggleMenu()">🎵</button>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+        }
+
+        function showLang(lang) {
+            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+
+        function toggleMenu() {
+            document.getElementById('songMenu').classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('songMenu');
+            const btn = document.querySelector('.fab-btn');
+            if (!menu.contains(event.target) && !btn.contains(event.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
