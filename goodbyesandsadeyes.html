@@ -77,7 +77,7 @@
         .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
         .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
 
-        /* FAB & Menu */
+        /* FAB & Menu (樣式保留供 menu.js 使用) */
         .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
         .fab-btn {
             width: 64px; height: 64px; border-radius: 24px;
@@ -473,20 +473,13 @@
         <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
     </div>
 
-    <div class="fab-container">
-        <div class="song-menu" id="songMenu">
-            <div class="menu-header">Playlist</div>
-            <a href="sos.html" class="menu-item"><span>💿</span> S.O.S</a>
-            <a href="goodbyesandsadeyes.html" class="menu-item active"><span>🫧</span> Goodbyes and Sad Eyes</a>
-        </div>
-        <button class="fab-btn" onclick="toggleMenu()">🎵</button>
-    </div>
+    <script src="menu.js"></script>
 
     <script>
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const btn = document.querySelector('.theme-toggle');
-            btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
         }
 
         function showLang(lang) {
@@ -495,18 +488,6 @@
             document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
         }
-
-        function toggleMenu() {
-            document.getElementById('songMenu').classList.toggle('open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('songMenu');
-            const btn = document.querySelector('.fab-btn');
-            if (!menu.contains(event.target) && !btn.contains(event.target)) {
-                menu.classList.remove('open');
-            }
-        });
     </script>
 </body>
 </html>
