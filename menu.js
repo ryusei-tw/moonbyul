@@ -1,4 +1,4 @@
-// --- 設定歌曲清單 (以後加歌只要改這裡！) ---
+// --- 設定歌曲清單 (加歌只要改這裡) ---
 const songs = [
     { title: "S.O.S", file: "sos.html", icon: "💿" },
     { title: "Goodbyes and Sad Eyes", file: "goodbyesandsadeyes.html", icon: "🫧" },
@@ -13,63 +13,42 @@ const songs = [
     { title: "TOUCHIN&MOVIN", file: "touchinmovin.html", icon: "💃" },
     { title: "Memories", file: "memories.html", icon: "🎞️" },
     { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
-// ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
-// { title: "新歌名", file: "新檔案.html", icon: "🎵" },
-
+    // ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
+    // { title: "新歌名", file: "新檔案.html", icon: "🎵" },
 ];
 
 // ==========================================
-// 1. 自動注入 App 設定 (PWA & iOS)
+// 1. 自動注入 App 設定
 // ==========================================
 function injectAppMeta() {
     if (!document.head) return;
-    
     if (!document.querySelector('link[rel="manifest"]')) {
-        const linkManifest = document.createElement('link');
-        linkManifest.rel = 'manifest';
-        linkManifest.href = 'manifest.json';
-        document.head.appendChild(linkManifest);
+        const link = document.createElement('link'); link.rel = 'manifest'; link.href = 'manifest.json'; document.head.appendChild(link);
     }
-
     if (!document.querySelector('meta[name="apple-mobile-web-app-capable"]')) {
-        const metaApple = document.createElement('meta');
-        metaApple.name = 'apple-mobile-web-app-capable';
-        metaApple.content = 'yes';
-        document.head.appendChild(metaApple);
+        const meta = document.createElement('meta'); meta.name = 'apple-mobile-web-app-capable'; meta.content = 'yes'; document.head.appendChild(meta);
     }
-
     if (!document.querySelector('link[rel="apple-touch-icon"]')) {
-        const linkIcon = document.createElement('link');
-        linkIcon.rel = 'apple-touch-icon';
-        linkIcon.href = 'icon.png';
-        document.head.appendChild(linkIcon);
+        const link = document.createElement('link'); link.rel = 'apple-touch-icon'; link.href = 'icon.png'; document.head.appendChild(link);
     }
 }
 injectAppMeta();
 
 // ==========================================
-// 2. 自動加入「回首頁」按鈕 (黑白版 🏠)
+// 2. 自動加入回首頁按鈕 & 更新 Footer
 // ==========================================
-function addHomeButton() {
+document.addEventListener('DOMContentLoaded', () => {
+    // 2-1. 回首頁按鈕 (黑白房子)
     const currentFile = window.location.pathname.split("/").pop();
-    // 確保不是首頁，且按鈕還沒被加過
     if (currentFile !== "index.html" && currentFile !== "" && !document.querySelector('.home-btn')) {
         const topBar = document.querySelector('.top-bar');
         if (topBar) {
-            const homeBtnHtml = `
-                <a href="index.html" class="home-btn" style="text-decoration: none; margin-right: auto;">
-                    <span style="font-size: 20px; filter: grayscale(1);">🏠</span>
-                </a>
-            `;
+            const homeBtnHtml = `<a href="index.html" class="home-btn" style="text-decoration: none; margin-right: auto;"><span style="font-size: 20px; filter: grayscale(1);">🏠</span></a>`;
             topBar.insertAdjacentHTML('afterbegin', homeBtnHtml);
         }
     }
-}
 
-// ==========================================
-// 3. ✅ 自動更新全站 Footer (已修改文字)
-// ==========================================
-function updateGlobalFooter() {
+    // 2-2. 更新 Footer (文星伊&流星版)
     const footer = document.querySelector('.footer');
     if (footer) {
         footer.innerHTML = `
@@ -82,102 +61,159 @@ function updateGlobalFooter() {
             </p>
         `;
     }
-}
-
-// 統一在頁面載入完成後執行 UI 修改
-document.addEventListener('DOMContentLoaded', () => {
-    addHomeButton();
-    updateGlobalFooter();
 });
 
-
 // ==========================================
-// 4. 產生選單 HTML
+// 3. 產生「底部滑出選單 (Bottom Sheet)」 HTML
 // ==========================================
 const currentPath = window.location.pathname.split("/").pop(); 
 let menuItemsHTML = "";
 
 songs.forEach(song => {
     const isActive = currentPath === song.file ? "active" : "";
+    // 這裡改用 sheet-item 樣式
     menuItemsHTML += `
-        <a href="${song.file}" class="menu-item ${isActive}">
-            <span>${song.icon}</span> ${song.title}
+        <a href="${song.file}" class="sheet-item ${isActive}">
+            <span class="sheet-icon">${song.icon}</span> 
+            <span class="sheet-text">${song.title}</span>
+            ${isActive ? '<span>🎵</span>' : ''} 
         </a>
     `;
 });
 
-const menuHTML = `
-    <div class="fab-container">
-        <div class="song-menu" id="songMenu">
-            <div class="menu-header">Playlist</div>
+const sheetHTML = `
+    <div class="sheet-overlay" id="sheetOverlay" onclick="toggleMenu()"></div>
+    
+    <div class="bottom-sheet" id="bottomSheet">
+        <div class="sheet-handle-bar"><div class="sheet-handle"></div></div>
+        <div class="sheet-header-title">Playlist (${songs.length})</div>
+        <div class="sheet-content">
             ${menuItemsHTML}
         </div>
+    </div>
+
+    <div class="fab-container">
         <button class="fab-btn" onclick="toggleMenu()">🎵</button>
     </div>
 `;
 
-// 防止重複加入選單
-if (document.body && !document.querySelector('.fab-container')) {
-    document.body.insertAdjacentHTML('beforeend', menuHTML);
+// 插入 HTML (防止重複插入)
+if (document.body && !document.querySelector('.bottom-sheet')) {
+    document.body.insertAdjacentHTML('beforeend', sheetHTML);
 }
 
+// ==========================================
+// 4. 選單開關功能
+// ==========================================
 function toggleMenu() {
-    const menu = document.getElementById('songMenu');
-    if (menu) menu.classList.toggle('open');
+    const overlay = document.getElementById('sheetOverlay');
+    const sheet = document.getElementById('bottomSheet');
+    if (overlay && sheet) {
+        overlay.classList.toggle('show');
+        sheet.classList.toggle('show');
+    }
 }
 
-document.addEventListener('click', function(event) {
-    const menu = document.getElementById('songMenu');
-    const btn = document.querySelector('.fab-btn');
-    if (menu && btn && !menu.contains(event.target) && !btn.contains(event.target)) {
-        menu.classList.remove('open');
-    }
-});
-
 // ==========================================
-// 5. 🛡️ 強力防複製 & CSS 優化
+// 5. 注入 CSS (Bottom Sheet 樣式 + 防護)
 // ==========================================
-
-document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12' || (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'p'))) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-}, false);
-
-// 防止重複注入 CSS
-if (!document.getElementById('global-style')) {
+if (!document.getElementById('app-style')) {
     const styleSheet = document.createElement("style");
-    styleSheet.id = 'global-style';
+    styleSheet.id = 'app-style';
     styleSheet.innerHTML = `
+        /* --- 全域防護設定 --- */
         * {
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
-            -ms-user-select: none !important;
             user-select: none !important;
             -webkit-touch-callout: none !important;
             -webkit-tap-highlight-color: transparent;
         }
-        body { overscroll-behavior-y: none; }
         input, textarea { -webkit-user-select: text !important; user-select: text !important; }
         
-        .home-btn {
-            padding: 8px;
-            border-radius: 50%;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.7;
+        /* --- 回首頁按鈕 --- */
+        .home-btn { padding: 8px; border-radius: 50%; display: flex; align-items: center; opacity: 0.7; }
+        .home-btn:hover { background-color: rgba(0,0,0,0.05); opacity: 1; }
+        body.dark-mode .home-btn:hover { background-color: rgba(255,255,255,0.1); }
+        
+        /* --- FAB 按鈕 --- */
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: #fff;
+            border: none; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            font-size: 28px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.2s;
         }
-        .home-btn:hover {
-            background-color: rgba(0,0,0,0.05);
-            opacity: 1;
+        .fab-btn:active { transform: scale(0.9); }
+
+        /* --- 遮罩層 (Overlay) --- */
+        .sheet-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 201;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+            backdrop-filter: blur(2px);
         }
-        body.dark-mode .home-btn:hover {
+        .sheet-overlay.show { opacity: 1; visibility: visible; }
+
+        /* --- 底部面板 (Bottom Sheet) --- */
+        .bottom-sheet {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            max-height: 70vh; /* 最大高度 */
+            background-color: var(--menu-bg);
+            border-radius: 24px 24px 0 0;
+            z-index: 202;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
+        }
+        .bottom-sheet.show { transform: translateY(0); }
+
+        /* --- 面板內部元件 --- */
+        .sheet-handle-bar { padding: 12px 0; display: flex; justify-content: center; }
+        .sheet-handle { width: 40px; height: 5px; background: #ddd; border-radius: 10px; }
+        .sheet-header-title { text-align: center; font-weight: bold; margin-bottom: 10px; color: var(--text-color); opacity: 0.5; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .sheet-content {
+            overflow-y: auto; /* 允許滑動 */
+            padding: 0 20px 40px 20px;
+            overscroll-behavior: contain;
+        }
+
+        /* --- 歌曲選項樣式 --- */
+        .sheet-item {
+            display: flex; align-items: center;
+            padding: 16px; margin-bottom: 8px;
+            background-color: transparent;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+        .sheet-item:active { background-color: rgba(0,0,0,0.05); transform: scale(0.98); }
+        .sheet-icon { margin-right: 15px; font-size: 20px; }
+        .sheet-text { flex: 1; }
+        
+        /* 選中狀態 */
+        .sheet-item.active {
+            background-color: var(--bg-color);
+            color: var(--fab-bg);
+            border: 1px solid var(--fab-bg);
+        }
+        body.dark-mode .sheet-item.active {
             background-color: rgba(255,255,255,0.1);
         }
     `;
     document.head.appendChild(styleSheet);
 }
+
+// 禁止 F12 等快捷鍵
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12' || (e.ctrlKey && ['c','u','s','p'].includes(e.key))) {
+        e.preventDefault(); e.stopPropagation();
+    }
+});
