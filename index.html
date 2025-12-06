@@ -84,7 +84,7 @@
         .card-title { font-size: 18px; font-weight: 700; line-height: 1.3; }
         .card-arrow { opacity: 0.3; font-size: 20px; margin-left: 10px; }
 
-        /* FAB & Menu */
+        /* FAB & Menu (樣式保留，因為 menu.js 會生成這些元素) */
         .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
         .fab-btn {
             width: 64px; height: 64px; border-radius: 24px;
@@ -112,6 +112,9 @@
         .menu-item:hover { background-color: rgba(0,0,0,0.04); }
         body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
         .menu-item span { margin-right: 10px; }
+        
+        /* 首頁不需要 active 樣式，但可以留著以防萬一 */
+        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
 
         .footer { margin-top: 50px; text-align: center; color: var(--text-color); opacity: 0.4; font-size: 12px; font-style: italic; }
     </style>
@@ -145,19 +148,20 @@
                 </div>
                 <span class="card-arrow">➜</span>
             </a>
+
+            <a href="icybby.html" class="song-card">
+                <div class="card-info">
+                    <span class="card-icon">🧊</span>
+                    <span class="card-title">ICY BBY</span>
+                </div>
+                <span class="card-arrow">➜</span>
+            </a>
         </div>
 
         <div class="footer">Create for moonbyul's atm</div>
     </div>
 
-    <div class="fab-container">
-        <div class="song-menu" id="songMenu">
-            <div class="menu-header">Playlist</div>
-            <a href="sos.html" class="menu-item"><span>💿</span> S.O.S</a>
-            <a href="goodbyesandsadeyes.html" class="menu-item"><span>🫧</span> Goodbyes and Sad Eyes</a>
-        </div>
-        <button class="fab-btn" onclick="toggleMenu()">🎵</button>
-    </div>
+    <script src="menu.js"></script>
 
     <script>
         function toggleTheme() {
@@ -165,18 +169,8 @@
             const btn = document.querySelector('.theme-toggle');
             btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
         }
-
-        function toggleMenu() {
-            document.getElementById('songMenu').classList.toggle('open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('songMenu');
-            const btn = document.querySelector('.fab-btn');
-            if (!menu.contains(event.target) && !btn.contains(event.target)) {
-                menu.classList.remove('open');
-            }
-        });
+        
+        // 注意：toggleMenu 那些功能已經移到 menu.js 去了，這裡不需要重複寫
     </script>
 
 </body>
