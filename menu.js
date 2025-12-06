@@ -13,6 +13,8 @@ const songs = [
     { title: "TOUCHIN&MOVIN", file: "touchinmovin.html", icon: "💃" },
     { title: "Memories", file: "memories.html", icon: "🎞️" },
     { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
+    { title: "My moon", file: "mymoon.html", icon: "🌙" },
+    { title: "愛你但說不出口", file: "aini.html", icon: "🎧" },
     // ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
     // { title: "新歌名", file: "新檔案.html", icon: "🎵" },
 ];
