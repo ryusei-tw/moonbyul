@@ -75,9 +75,9 @@
         
         .cheer { color: var(--accent); font-weight: 900; margin-left: 8px; display: inline-block;}
         .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
-        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
+        .section-title { margin-top: 30px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 15px;}
 
-        /* FAB & Menu */
+        /* FAB & Menu (樣式保留供 menu.js 使用) */
         .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
         .fab-btn {
             width: 64px; height: 64px; border-radius: 24px;
@@ -91,7 +91,7 @@
         .song-menu {
             position: absolute; bottom: 80px; left: 0;
             background-color: var(--menu-bg); border-radius: 24px;
-            width: 240px; padding: 8px; box-shadow: var(--shadow);
+            width: 220px; padding: 8px; box-shadow: var(--shadow);
             opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
             pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
         }
@@ -100,7 +100,7 @@
         .menu-item {
             display: flex; align-items: center; padding: 14px 16px;
             color: var(--text-color); text-decoration: none; border-radius: 16px;
-            margin-bottom: 2px; font-weight: 600; font-size: 14px; transition: 0.2s;
+            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
         }
         .menu-item:hover { background-color: rgba(0,0,0,0.04); }
         body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
@@ -438,21 +438,13 @@
         <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
     </div>
 
-    <div class="fab-container">
-        <div class="song-menu" id="songMenu">
-            <div class="menu-header">Playlist</div>
-            <a href="sos.html" class="menu-item"><span>💿</span> S.O.S</a>
-            <a href="goodbyesandsadeyes.html" class="menu-item"><span>🫧</span> Goodbyes and Sad Eyes</a>
-            <a href="icybby.html" class="menu-item active"><span>🧊</span> ICY BBY</a>
-        </div>
-        <button class="fab-btn" onclick="toggleMenu()">🎵</button>
-    </div>
+    <script src="menu.js"></script>
 
     <script>
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const btn = document.querySelector('.theme-toggle');
-            btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
         }
 
         function showLang(lang) {
@@ -461,18 +453,6 @@
             document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
         }
-
-        function toggleMenu() {
-            document.getElementById('songMenu').classList.toggle('open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('songMenu');
-            const btn = document.querySelector('.fab-btn');
-            if (!menu.contains(event.target) && !btn.contains(event.target)) {
-                menu.classList.remove('open');
-            }
-        });
     </script>
 </body>
 </html>
