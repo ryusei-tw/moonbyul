@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse - Moon Byul</title>
+    <style>
+        /* --- [laundri] 專輯配色設定 --- */
+        :root {
+            --bg-color: #f0f4f8;       /* 淺灰藍 */
+            --text-color: #2d3436;     /* 深灰 */
+            --bar-bg: rgba(255, 255, 255, 0.90);
+            --accent: #FF6B35;         /* 活力橙 */
+            --fab-bg: #4DA1FF;         /* 天空藍 */
+            --fab-text: #ffffff;
+            --menu-bg: #ffffff;
+            --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
+            /* 語言顏色 */
+            --highlight-color: #d32f2f; /* 日 (紅) */
+            --eng-color: #2e7d32;       /* 英 (綠) */
+            --zh-color: #e65100;        /* 中 (橘) */
+        }
+        body.dark-mode {
+            --bg-color: #101820;       /* 深丹寧 */
+            --text-color: #dfe6e9;     /* 灰白 */
+            --bar-bg: rgba(16, 24, 32, 0.95);
+            --accent: #FF9F43;
+            --fab-bg: #2e86de;
+            --fab-text: #ffffff;
+            --menu-bg: #1e272e;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* 深色模式下的語言顏色 */
+            --highlight-color: #ffeb3b;
+            --eng-color: #69f0ae;
+            --zh-color: #ffab91;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: -apple-system, sans-serif;
+            margin: 0; padding: 0; transition: 0.4s ease;
+            padding-bottom: 120px; padding-top: 80px; 
+        }
+
+        /* 頂部列 */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background-color: var(--bar-bg); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .theme-toggle { font-size: 22px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .lang-chips { display: flex; gap: 6px; background-color: rgba(0,0,0,0.03); padding: 4px; border-radius: 30px; }
+        .chip {
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; color: var(--text-color); opacity: 0.6;
+        }
+        .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+        /* 內容區 */
+        .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
+        
+        .line-box { 
+            margin-bottom: 24px; padding: 16px;
+            background: rgba(255,255,255,0.5); border-radius: 16px;
+        }
+        body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
+
+        .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
+        /* 語言切換邏輯 */
+        .jp { color: var(--highlight-color); display: block; }
+        .en, .zh { display: none; }
+        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
+        .zh { color: var(--zh-color); font-weight: bold; }
+        
+        .cheer { color: var(--accent); font-weight: 900; margin-left: 8px; display: inline-block;}
+        .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
+        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
+
+        /* FAB & Menu (樣式保留供 menu.js 使用) */
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: var(--fab-text);
+            border: none; box-shadow: var(--shadow); font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .fab-btn:active { transform: scale(0.9); }
+        
+        .song-menu {
+            position: absolute; bottom: 80px; left: 0;
+            background-color: var(--menu-bg); border-radius: 24px;
+            width: 240px; padding: 8px; box-shadow: var(--shadow);
+            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
+            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .menu-header { font-size: 12px; opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
+        .menu-item {
+            display: flex; align-items: center; padding: 14px 16px;
+            color: var(--text-color); text-decoration: none; border-radius: 16px;
+            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
+        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
+        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
+        .menu-item span { margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <div class="lang-chips">
+            <div class="chip active" id="btn-jp" onclick="showLang('jp')">日</div>
+            <div class="chip" id="btn-en" onclick="showLang('en')">英</div>
+            <div class="chip" id="btn-zh" onclick="showLang('zh')">中</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 class="song-title">Eclipse</h2>
+
+        <div class="section-title">Intro</div>
+        <div class="line-box">
+            <div class="kr">황혼은 다가오는데</div>
+            <div class="jp">ファンホヌン タガオヌンデ</div>
+            <div class="en">Hwanghoneun dagaoneunde</div>
+            <div class="zh">黃昏恩 達嘎歐能de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">그저 넌 바라보니 왜</div>
+            <div class="jp">クジョ ノン パラボニ ウェ</div>
+            <div class="en">Geujeo neon baraboni wae</div>
+            <div class="zh">可鳩 弄 帕拉波妳 we</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때 <span class="cheer">(문! 별! 이!)</span></div>
+            <div class="jp">タリ テヤンウル カリル ッテ <span class="cheer">(ムン！ ビョ！ リ！)</span></div>
+            <div class="en">Dari taeyangeul garil ttae <span class="cheer">(Moon! Byul! Yi!)</span></div>
+            <div class="zh">達李 太陽恩 嘎lil de <span class="cheer">(文！ 星！ 伊！)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">혼자인 것만 같은데 <span class="cheer">(Eclipse)</span></div>
+            <div class="jp">ホンジャイン ゴンマン カトゥンデ <span class="cheer">(Eclipse)</span></div>
+            <div class="en">Honjain geonman gateunde <span class="cheer">(Eclipse)</span></div>
+            <div class="zh">轟家印 公曼 嘎吞de <span class="cheer">(Eclipse)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Yeah ah yeh, ooh hmm</div>
+            <div class="jp">Yeah ah yeh, ooh hmm</div>
+            <div class="en">Yeah ah yeh, ooh hmm</div>
+            <div class="zh">Yeah ah yeh, ooh hmm</div>
+        </div>
+
+        <div class="section-title">Verse 1</div>
+        <div class="line-box">
+            <div class="kr">어둠의 위선자 표정을 드러내</div>
+            <div class="jp">オドゥメ ウィソンジャ ピョジョンウル トゥロネ</div>
+            <div class="en">Eodumui wiseonja pyojeongeul deureonae</div>
+            <div class="zh">歐度me wi-son-ja pyo-jong-eul du-ro-ne</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">붉게 물든 두 눈을 가려 <span class="cheer">(가려!)</span></div>
+            <div class="jp">プルケ ムルドゥン トゥ ヌヌル カリョ <span class="cheer">(カリョ！)</span></div>
+            <div class="en">Bulkge muldeun du nuneul garyeo <span class="cheer">(Garyeo!)</span></div>
+            <div class="zh">普給 mul-deun 杜 努努 嘎溜 <span class="cheer">(嘎溜!)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">등 뒤로 느껴지는 phantom</div>
+            <div class="jp">トゥン ティロ ヌッキョジヌン phantom</div>
+            <div class="en">Deung dwiro neukkyeojineun phantom</div>
+            <div class="zh">敦 dwi-ro 怒gyo-ji-neun phantom</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">악몽처럼 또 반복되는 패턴</div>
+            <div class="jp">アンモンチョロム ト パンボクテヌン ペトン</div>
+            <div class="en">Angmongcheoreom tto banbokdoeneun paeteon</div>
+            <div class="zh">Ak-mong-cho-rom 偷 潘bok-dwe-neun pattern</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">넌 내게서 멀어지지 마</div>
+            <div class="jp">ノン ネゲソ モロジジ マ</div>
+            <div class="en">Neon naegeseo meoreojiji ma</div>
+            <div class="zh">弄 ne-ge-so 摸羅基基 媽</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">끔찍한 고통을 끊어낼 테니</div>
+            <div class="jp">ックムチカン コトンウル ックノネル テニ</div>
+            <div class="en">Kkeumjjikhan gotongeul kkeunheonael teni</div>
+            <div class="zh">肯基坎 勾同恩 跟喔ne te-ni</div>
+        </div>
+
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box">
+            <div class="kr">누구도 닿지 못한 dark side of the moon 야 <span class="cheer">(야!)</span></div>
+            <div class="jp">ヌグド タッチ モタン dark side of the moon ヤ <span class="cheer">(ヤ！)</span></div>
+            <div class="en">Nugudo dachi motan dark side of the moon ya <span class="cheer">(Ya!)</span></div>
+            <div class="zh">怒古多 塔基 摸tan dark side of the moon 呀 <span class="cheer">(呀!)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">마주하게 될 테니 굳게 닫힌 문 yeah <span class="cheer">(yeah!)</span></div>
+            <div class="jp">マジュハゲ デル テニ クッケ タチン ムン yeah <span class="cheer">(yeah！)</span></div>
+            <div class="en">Majuhage doel teni gutge dachin mun yeah <span class="cheer">(yeah!)</span></div>
+            <div class="zh">馬朱哈給 del te-ni 古給 塔親 moon yeah <span class="cheer">(yeah!)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Ready set go 나를 따라 follow</div>
+            <div class="jp">Ready set go ナルル タラ follow</div>
+            <div class="en">Ready set go nareul ttara follow</div>
+            <div class="zh">Ready set go 那日 塔拉 follow</div>
+        </div>
+
+        <div class="section-title">Chorus</div>
+        <div class="line-box">
+            <div class="kr">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="jp">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="en">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="zh">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">너를 지킬 <span class="cheer">moonstar</span></div>
+            <div class="jp">ノルル ジキル <span class="cheer">moonstar</span></div>
+            <div class="en">Neoreul jikil <span class="cheer">moonstar</span></div>
+            <div class="zh">no-rur 基kill <span class="cheer">moonstar</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달 저편에 숨어 빛을 삼킬 <span class="cheer">monster</span></div>
+            <div class="jp">タル チョピョネ スモ ピチュル サムキル <span class="cheer">monster</span></div>
+            <div class="en">Dal jeopyeone sumeo bicheul samkil <span class="cheer">monster</span></div>
+            <div class="zh">達 周pyon-e 蘇摸 逼七 桑kill <span class="cheer">monster</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">너를 지킬 <span class="cheer">moonstar</span></div>
+            <div class="jp">ノルル ジキル <span class="cheer">moonstar</span></div>
+            <div class="en">Neoreul jikil <span class="cheer">moonstar</span></div>
+            <div class="zh">no-rur 基kill <span class="cheer">moonstar</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">암전된 세상을 집어삼켜 <span class="cheer">what (what)</span></div>
+            <div class="jp">アムジョンデン セサンウル チボサムキョ <span class="cheer">what (what)</span></div>
+            <div class="en">Amjeondoen sesangeul jibeosamkyeo <span class="cheer">what (what)</span></div>
+            <div class="zh">安炯dwe se-sang-eul 基波桑kyo <span class="cheer">what (what)</span></div>
+        </div>
+
+        <div class="section-title">Post-Chorus</div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때</div>
+            <div class="jp">タリ テヤンウル カリル ッテ</div>
+            <div class="en">Dari taeyangeul garil ttae</div>
+            <div class="zh">達李 太陽恩 嘎lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">그 빛을 잃어 어둠이 내릴 때</div>
+            <div class="jp">ク ピチュル イロ オドゥミ ネリル ッテ</div>
+            <div class="en">Geu bicheul ileo eodumi naeril ttae</div>
+            <div class="zh">可 逼七 宜羅 歐度米 ne-lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">어둠을 딛고 light up light up light up</div>
+            <div class="jp">オドゥムル ティッコ light up light up light up</div>
+            <div class="en">Eodumeul ditgo light up light up light up</div>
+            <div class="zh">歐度悶 滴勾 light up light up light up</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">널 구원해줄게 with my light</div>
+            <div class="jp">ノル クウォネジュルケ with my light</div>
+            <div class="en">Neol guwonhaejulge with my light</div>
+            <div class="zh">nol 古翁he-jul-ge with my light</div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">(달달 무슨 달 다 집어삼킬 monster)</span> yeah yeah</div>
+            <div class="jp"><span class="cheer">(タルタル ムスン タル タ チボサムキル monster)</span> yeah yeah</div>
+            <div class="en"><span class="cheer">(Dal dal museun dal da jibeosamkil monster)</span> yeah yeah</div>
+            <div class="zh"><span class="cheer">(達達 母森 達 塔 基波桑kill monster)</span> yeah yeah</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때</div>
+            <div class="jp">タリ テヤンウル カリル ッテ</div>
+            <div class="en">Dari taeyangeul garil ttae</div>
+            <div class="zh">達李 太陽恩 嘎lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">환한 빛으로 널 가득 채워줄</div>
+            <div class="jp">ファナン ピチュロ ノル カドゥク チェウォジュル</div>
+            <div class="en">Hwanhan bicheuro neol gadeuk chaewojul</div>
+            <div class="zh">花難 逼出羅 nol 嘎督 che-wo-jul</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게</div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ</div>
+            <div class="en">Byeori doeeo neol bichulge</div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給</div>
+        </div>
+
+        <div class="section-title">Bridge</div>
+        <div class="line-box">
+            <div class="kr">누구도 닿지 못한 dark side of the moon 야 <span class="cheer">(야!)</span></div>
+            <div class="jp">ヌグド タッチ モタン dark side of the moon ヤ <span class="cheer">(ヤ！)</span></div>
+            <div class="en">Nugudo dachi motan dark side of the moon ya <span class="cheer">(Ya!)</span></div>
+            <div class="zh">怒古多 塔基 摸tan dark side of the moon 呀 <span class="cheer">(呀!)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">마주하게 될 테니 굳게 닫힌 문 yeah <span class="cheer">(yeah!)</span></div>
+            <div class="jp">マジュハゲ デル テニ クッケ タチン ムン yeah <span class="cheer">(yeah！)</span></div>
+            <div class="en">Majuhage doel teni gutge dachin mun yeah <span class="cheer">(yeah!)</span></div>
+            <div class="zh">馬朱哈給 del te-ni 古給 塔親 moon yeah <span class="cheer">(yeah!)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Ready set go 나를 따라 follow</div>
+            <div class="jp">Ready set go ナルル タラ follow</div>
+            <div class="en">Ready set go nareul ttara follow</div>
+            <div class="zh">Ready set go 那日 塔拉 follow</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="jp">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="en">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+            <div class="zh">Dda dda dda dda dda dda dda <span class="cheer">(Eclipse)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">너를 지킬 <span class="cheer">moonstar</span></div>
+            <div class="jp">ノルル ジキル <span class="cheer">moonstar</span></div>
+            <div class="en">Neoreul jikil <span class="cheer">moonstar</span></div>
+            <div class="zh">no-rur 基kill <span class="cheer">moonstar</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달 저편에 숨어 빛을 삼킬 <span class="cheer">monster</span></div>
+            <div class="jp">タル チョピョネ スモ ピチュル サムキル <span class="cheer">monster</span></div>
+            <div class="en">Dal jeopyeone sumeo bicheul samkil <span class="cheer">monster</span></div>
+            <div class="zh">達 周pyon-e 蘇摸 逼七 桑kill <span class="cheer">monster</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">너를 지킬 <span class="cheer">moonstar</span></div>
+            <div class="jp">ノルル ジキル <span class="cheer">moonstar</span></div>
+            <div class="en">Neoreul jikil <span class="cheer">moonstar</span></div>
+            <div class="zh">no-rur 基kill <span class="cheer">moonstar</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">감춰진 본능을 깨워줄게 <span class="cheer">what (what)</span></div>
+            <div class="jp">カムチョジン ポンヌンウル ッケウォジュルケ <span class="cheer">what (what)</span></div>
+            <div class="en">Gamchwojin bonneungeul kkaewojulge <span class="cheer">what (what)</span></div>
+            <div class="zh">甘秋金 崩能恩 給窩居給 <span class="cheer">what (what)</span></div>
+        </div>
+
+        <div class="section-title">Outro</div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때 <span class="cheer">(가릴 때)</span></div>
+            <div class="jp">タリ テヤンウル カリル ッテ <span class="cheer">(カリル ッテ)</span></div>
+            <div class="en">Dari taeyangeul garil ttae <span class="cheer">(Garil ttae)</span></div>
+            <div class="zh">達李 太陽恩 嘎lil de <span class="cheer">(嘎lil de)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">그 빛을 잃어 어둠이 내릴 때</div>
+            <div class="jp">ク ピチュル イロ オドゥミ ネリル ッテ</div>
+            <div class="en">Geu bicheul ileo eodumi naeril ttae</div>
+            <div class="zh">可 逼七 宜羅 歐度米 ne-lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">어둠을 딛고 light up light up light up</div>
+            <div class="jp">オドゥムル ティッコ light up light up light up</div>
+            <div class="en">Eodumeul ditgo light up light up light up</div>
+            <div class="zh">歐度悶 滴勾 light up light up light up</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">널 구원해줄게 with my light</div>
+            <div class="jp">ノル クウォネジュルケ with my light</div>
+            <div class="en">Neol guwonhaejulge with my light</div>
+            <div class="zh">nol 古翁he-jul-ge with my light</div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">(달달 무슨 달 다 집어삼킬 monster)</span></div>
+            <div class="jp"><span class="cheer">(タルタル ムスン タル タ チボサムキル monster)</span></div>
+            <div class="en"><span class="cheer">(Dal dal museun dal da jibeosamkil monster)</span></div>
+            <div class="zh"><span class="cheer">(達達 母森 達 塔 基波桑kill monster)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때 <span class="cheer">(가릴 때)</span></div>
+            <div class="jp">タリ テヤンウル カリル ッテ <span class="cheer">(カリル ッテ)</span></div>
+            <div class="en">Dari taeyangeul garil ttae <span class="cheer">(Garil ttae)</span></div>
+            <div class="zh">達李 太陽恩 嘎lil de <span class="cheer">(嘎lil de)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">환한 빛으로 널 가득 채워줄</div>
+            <div class="jp">ファナン ピチュロ ノル カドゥク チェウォジュル</div>
+            <div class="en">Hwanhan bicheuro neol gadeuk chaewojul</div>
+            <div class="zh">花難 逼出羅 nol 嘎督 che-wo-jul</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게</div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ</div>
+            <div class="en">Byeori doeeo neol bichulge</div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달달 무슨 달</div>
+            <div class="jp">タルタル ムスン タル</div>
+            <div class="en">Dal dal museun dal</div>
+            <div class="zh">達達 母森 達</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때</div>
+            <div class="jp">タリ テヤンウル カリル ッテ</div>
+            <div class="en">Dari taeyangeul garil ttae</div>
+            <div class="zh">達李 太陽恩 嘎lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">그 빛을 잃어 어둠이 내릴 때</div>
+            <div class="jp">ク ピチュル イロ オドゥミ ネリル ッテ</div>
+            <div class="en">Geu bicheul ileo eodumi naeril ttae</div>
+            <div class="zh">可 逼七 宜羅 歐度米 ne-lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">어둠을 딛고 light up light up light up</div>
+            <div class="jp">オドゥムル ティッコ light up light up light up</div>
+            <div class="en">Eodumeul ditgo light up light up light up</div>
+            <div class="zh">歐度悶 滴勾 light up light up light up</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">널 구원해줄게 with my light</div>
+            <div class="jp">ノル クウォネジュルケ with my light</div>
+            <div class="en">Neol guwonhaejulge with my light</div>
+            <div class="zh">nol 古翁he-jul-ge with my light</div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">(달달 무슨 달 다 집어삼킬 monster)</span> yeah yeah</div>
+            <div class="jp"><span class="cheer">(タルタル ムスン タル タ チボサムキル monster)</span> yeah yeah</div>
+            <div class="en"><span class="cheer">(Dal dal museun dal da jibeosamkil monster)</span> yeah yeah</div>
+            <div class="zh"><span class="cheer">(達達 母森 達 塔 基波桑kill monster)</span> yeah yeah</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">달이 태양을 가릴 때</div>
+            <div class="jp">タリ テヤンウル カリル ッテ</div>
+            <div class="en">Dari taeyangeul garil ttae</div>
+            <div class="zh">達李 太陽恩 嘎lil de</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">환한 빛으로 널 가득 채워줄</div>
+            <div class="jp">ファナン ピチュロ ノル カドゥク チェウォジュル</div>
+            <div class="en">Hwanhan bicheuro neol gadeuk chaewojul</div>
+            <div class="zh">花難 逼出羅 nol 嘎督 che-wo-jul</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">별이 되어 널 비출게 <span class="cheer">(비출게)</span></div>
+            <div class="jp">ピョリ テオ ノル ピチュルケ <span class="cheer">(ピチュルケ)</span></div>
+            <div class="en">Byeori doeeo neol bichulge <span class="cheer">(Bichulge)</span></div>
+            <div class="zh">pyo-li dwe-Eo nol 逼出給 <span class="cheer">(逼出給)</span></div>
+        </div>
+        <div style="margin-top:40px; color:#888; font-size:12px;">Create for moonbyul's atm</div>
+    </div>
+
+    <script src="menu.js"></script>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+        }
+
+        function showLang(lang) {
+            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
+</body>
+</html>
