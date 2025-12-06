@@ -3,6 +3,8 @@ const songs = [
     { title: "S.O.S", file: "sos.html", icon: "💿" },
     { title: "Goodbyes and Sad Eyes", file: "goodbyesandsadeyes.html", icon: "🫧" },
     { title: "ICY BBY", file: "icybby.html", icon: "🧊" },
+    { title: "Is This Love?", file: "isthislove.html", icon: "💘" },
+    { title: "PRESENT", file: "present.html", icon: "🎁" },
     // ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
     // { title: "新歌名", file: "新檔案.html", icon: "🎵" },
 ];
