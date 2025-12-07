@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love & Hate - Moon Byul</title>
+    <style>
+        /* --- [laundri] 專輯配色設定 --- */
+        :root {
+            --bg-color: #f0f4f8;       /* 淺灰藍 */
+            --text-color: #2d3436;     /* 深灰 */
+            --bar-bg: rgba(255, 255, 255, 0.90);
+            --accent: #FF6B35;         /* 活力橙 */
+            --fab-bg: #4DA1FF;         /* 天空藍 */
+            --fab-text: #ffffff;
+            --menu-bg: #ffffff;
+            --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
+            /* 語言顏色 */
+            --highlight-color: #d32f2f; /* 日 (紅) */
+            --eng-color: #2e7d32;       /* 英 (綠) */
+            --zh-color: #e65100;        /* 中 (橘) */
+        }
+        body.dark-mode {
+            --bg-color: #101820;       /* 深丹寧 */
+            --text-color: #dfe6e9;     /* 灰白 */
+            --bar-bg: rgba(16, 24, 32, 0.95);
+            --accent: #FF9F43;
+            --fab-bg: #2e86de;
+            --fab-text: #ffffff;
+            --menu-bg: #1e272e;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* 深色模式下的語言顏色 */
+            --highlight-color: #ffeb3b;
+            --eng-color: #69f0ae;
+            --zh-color: #ffab91;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: -apple-system, sans-serif;
+            margin: 0; padding: 0; transition: 0.4s ease;
+            padding-bottom: 120px; padding-top: 80px; 
+        }
+
+        /* 頂部列 */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background-color: var(--bar-bg); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .theme-toggle { font-size: 22px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .lang-chips { display: flex; gap: 6px; background-color: rgba(0,0,0,0.03); padding: 4px; border-radius: 30px; }
+        .chip {
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; color: var(--text-color); opacity: 0.6;
+        }
+        .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+        /* 內容區 */
+        .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        .song-title { margin: 0 0 40px 0; font-size: 24px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; line-height: 1.3; }
+        
+        .line-box { 
+            margin-bottom: 24px; padding: 16px;
+            background: rgba(255,255,255,0.5); border-radius: 16px;
+        }
+        body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
+
+        .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
+        /* 語言切換邏輯 */
+        .jp { color: var(--highlight-color); display: block; }
+        .en, .zh { display: none; }
+        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
+        .zh { color: var(--zh-color); font-weight: bold; }
+        
+        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
+
+        /* FAB & Menu (menu.js用) */
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: var(--fab-text);
+            border: none; box-shadow: var(--shadow); font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .fab-btn:active { transform: scale(0.9); }
+        
+        .song-menu {
+            position: absolute; bottom: 80px; left: 0;
+            background-color: var(--menu-bg); border-radius: 24px;
+            width: 240px; padding: 8px; box-shadow: var(--shadow);
+            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
+            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .menu-header { font-size: 12px; opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
+        .menu-item {
+            display: flex; align-items: center; padding: 14px 16px;
+            color: var(--text-color); text-decoration: none; border-radius: 16px;
+            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
+        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
+        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
+        .menu-item span { margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <div class="lang-chips">
+            <div class="chip active" id="btn-jp" onclick="showLang('jp')">日</div>
+            <div class="chip" id="btn-en" onclick="showLang('en')">英</div>
+            <div class="chip" id="btn-zh" onclick="showLang('zh')">中</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 class="song-title">Love & Hate</h2>
+
+        <div class="section-title">Verse 1</div>
+        <div class="line-box">
+            <div class="kr">내가 왜 널 좋아했을까</div>
+            <div class="jp">ネガ ウェ ノル チョアヘッスルッカ</div>
+            <div class="en">Naega wae neol joahaesseulkka</div>
+            <div class="zh">ne-ga we nol 啾哇he-sul-ka</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">생각보다 안 맞는 우리 둘 uh</div>
+            <div class="jp">センガクボダ アン マンヌン ウリ トゥル uh</div>
+            <div class="en">Saenggakboda an manneun uri dul uh</div>
+            <div class="zh">sen-gak-bo-da 安 曼能 屋裡 dul uh</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">친구를 붙잡고 욕하지만</div>
+            <div class="jp">チングルル プチャプコ ヨカジマン</div>
+            <div class="en">Chingureul butjapgo yokhajiman</div>
+            <div class="zh">親古rur pu-jap-go yo-ka-ji-man</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">너의 연락 한 통에 only you, uh</div>
+            <div class="jp">ノエ ヨンラク ハン トンエ only you, uh</div>
+            <div class="en">Neoui yeollak han tonge only you, uh</div>
+            <div class="zh">no-e 永拉 韓 通e only you, uh</div>
+        </div>
+
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box">
+            <div class="kr">지쳐갈 때쯤 이면 넌 꼭</div>
+            <div class="jp">チチョガル ッテチュム イミョン ノン コク</div>
+            <div class="en">Jichyeogal ttaejjeum imyeon neon kkok</div>
+            <div class="zh">基秋嘎 de-jeum 宜myon 弄 gok</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">다정해 따뜻해 기대를 주네</div>
+            <div class="jp">タジョンヘ ッタットゥテ キデルル ジュネ</div>
+            <div class="en">Dajeonghae ttatteushae gidaereul june</div>
+            <div class="zh">塔炯he 達督te gi-de-leul ju-ne</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">내가 필요할 때면 넌 꼭</div>
+            <div class="jp">ネガ ピリョハル ッテミョン ノン コク</div>
+            <div class="en">Naega piryohal ttaemyeon neon kkok</div>
+            <div class="zh">ne-ga p-ryo-hal de-myon 弄 gok</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">바쁘대 안돼 혼자가 된 나</div>
+            <div class="jp">パップデ アンデ ホンジャガ デン ナ</div>
+            <div class="en">Bappeudae andwae honjaga doen na</div>
+            <div class="zh">帕布de 安dwe 轟家嘎 den 那</div>
+        </div>
+
+        <div class="section-title">Chorus</div>
+        <div class="line-box">
+            <div class="kr">네가 있어도 난 아파</div>
+            <div class="jp">ネガ イッソド ナン アパ</div>
+            <div class="en">Nega isseodo nan apa</div>
+            <div class="zh">ne-ga 宜搜多 難 阿怕</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">보고 싶은데 내가 뭘 어쩌겠어</div>
+            <div class="jp">ポゴ シプンデ ネガ ムォル オッチョゲッソ</div>
+            <div class="en">Bogo sipeunde naega mwol eojjeogesseo</div>
+            <div class="zh">波勾 喜噴de ne-ga 摸 歐鳩給搜</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">티 내고 싶지 않아 날 안타깝게 볼까 봐 yeah</div>
+            <div class="jp">ティ ネゴ シプチ アナ ナル アンタッカプケ ボルッカ バ yeah</div>
+            <div class="en">Ti naego sipji ana nal antakkapge bolkka bwa yeah</div>
+            <div class="zh">T ne-go 希基 阿那 那 安塔嘎給 pol-ka pwa yeah</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">아무래도 난 구차해 구차해 yeah</div>
+            <div class="jp">アムレド ナン クチャヘ クチャヘ yeah</div>
+            <div class="en">Amuraedo nan guchahae guchahae yeah</div>
+            <div class="zh">阿母雷多 難 古茶he 古茶he yeah</div>
+        </div>
+
+        <div class="section-title">Verse 2</div>
+        <div class="line-box">
+            <div class="kr">Uh 멈출 수가 없어 I found you</div>
+            <div class="jp">Uh モムチュル スガ オプソ I found you</div>
+            <div class="en">Uh meomchul suga eopseo I found you</div>
+            <div class="zh">Uh mom-chul 蘇嘎 歐搜 I found you</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">나만 그런 것 같아 화가나</div>
+            <div class="jp">ナマン クロン ゴッ カタ ファガナ</div>
+            <div class="en">Naman geureon geot gata hwagana</div>
+            <div class="zh">那曼 可龍 勾 嘎塔 花嘎那</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">I don't understand</div>
+            <div class="jp">I don't understand</div>
+            <div class="en">I don't understand</div>
+            <div class="zh">I don't understand</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">이정도 속앓이는 익숙해</div>
+            <div class="jp">イジョンド ソガリヌン イクスケ</div>
+            <div class="en">Ijeongdo sogarineun iksukhae</div>
+            <div class="zh">宜炯多 搜嘎里能 宜蘇ke</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">동정은 no 하던 대로 해 그게 너다우니깐</div>
+            <div class="jp">トンジョンウン no ハドン デロ ヘ クゲ ノダウニッカン</div>
+            <div class="en">Dongjeongeun no hadeon daero hae geuge neodaunikkan</div>
+            <div class="zh">同炯恩 no 哈東 de-lo he 可給 no-da-u-ni-gan</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">맘을 쿡쿡 쑤셔도 말을 툭툭 뱉어도 나 너 하나니깐</div>
+            <div class="jp">マムル クックッ スショド マルル トゥクトゥク ペトド ナ ノ ハナニッカン</div>
+            <div class="en">Mameul kuk kuk ssusyeodo mareul tuk tuk baeteodo na neo hananikkan</div>
+            <div class="zh">媽悶 cook cook 蘇休多 馬日 took took be-to-do 那 no 哈那尼乾</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">이 밤에 맥주 한잔 들고 여전히 신세한탄 중</div>
+            <div class="jp">イ パメ メクチュ ハンジャン トゥルゴ ヨジョニ シンセハンタン ジュン</div>
+            <div class="en">I bame maekju hanjan deulgo yeojeonhi sinsehantan jung</div>
+            <div class="zh">宜 八me me-ju 韓章 deul-go 優鳩尼 信se-han-tan jung</div>
+        </div>
+
+        <div class="section-title">Chorus</div>
+        <div class="line-box" style="color:var(--text-color); opacity:0.6; border:none;">(Repeat Chorus)</div>
+
+        <div class="section-title">Bridge</div>
+        <div class="line-box">
+            <div class="kr">I recognize 한쪽으로 치우친 사이</div>
+            <div class="jp">I recognize ハンチョグロ チウチン サイ</div>
+            <div class="en">I recognize hanjjogeuro chiuchin sai</div>
+            <div class="zh">I recognize 韓鳩個羅 七五親 薩宜</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">못 미뤄놔 정리하고 싶어 빨리</div>
+            <div class="jp">モッ ミルォナ チョンリハゴ シポ ッパルリ</div>
+            <div class="en">Mot mirwonwa jeongnihago sipeo ppalli</div>
+            <div class="zh">mot 米羅nwa 炯里哈勾 喜po 八里</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">짜증나는 밤이네 love and hate</div>
+            <div class="jp">ッチャジュンナヌン パミネ love and hate</div>
+            <div class="en">Jjajeungnaneun bamine love and hate</div>
+            <div class="zh">雜曾那能 八米ne love and hate</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">한 두 번도 아닌데 예민해</div>
+            <div class="jp">ハン ドゥ ボンド アニンデ イェミネ</div>
+            <div class="en">Han du beondo aninde yeminhae</div>
+            <div class="zh">韓 杜 崩多 阿您de ye-min-he</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Every day, I falling love again</div>
+            <div class="jp">Every day, I falling love again</div>
+            <div class="en">Every day, I falling love again</div>
+            <div class="zh">Every day, I falling love again</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">애써 태연하게 구는 내가 싫어 you made it</div>
+            <div class="jp">エッソ テヨナゲ クヌン ネガ シロ you made it</div>
+            <div class="en">Aesseo taeyeonhage guneun naega sireo you made it</div>
+            <div class="zh">e-so te-yon-ha-ge 古能 ne-ga 西羅 you made it</div>
+        </div>
+
+        <div class="section-title">Chorus</div>
+        <div class="line-box" style="color:var(--text-color); opacity:0.6; border:none;">(Repeat Chorus)</div>
+
+        <div class="section-title">Outro</div>
+        <div class="line-box">
+            <div class="kr">Call me, call me every day, every night</div>
+            <div class="jp">Call me, call me every day, every night</div>
+            <div class="en">Call me, call me every day, every night</div>
+            <div class="zh">Call me, call me every day, every night</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Hug me, hug me everywhere, every time</div>
+            <div class="jp">Hug me, hug me everywhere, every time</div>
+            <div class="en">Hug me, hug me everywhere, every time</div>
+            <div class="zh">Hug me, hug me everywhere, every time</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Love me, love me every day, every night</div>
+            <div class="jp">Love me, love me every day, every night</div>
+            <div class="en">Love me, love me every day, every night</div>
+            <div class="zh">Love me, love me every day, every night</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">But I'm lonely, so lonely 구차해 매일 난</div>
+            <div class="jp">But I'm lonely, so lonely クチャヘ メイル ナン</div>
+            <div class="en">But I'm lonely, so lonely guchahae maeil nan</div>
+            <div class="zh">But I'm lonely, so lonely 古茶he me-il 難</div>
+        </div>
+
+        <div class="footer">Create for 문별&별똥별</div>
+    </div>
+
+    <script src="menu.js"></script>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+        }
+
+        function showLang(lang) {
+            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
+</body>
+</html>
