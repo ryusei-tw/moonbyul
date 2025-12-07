@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moonbyul 歌曲應援文字版</title>
+    <title>Moon Byul 應援站</title>
     <style>
         /* --- [laundri] 專輯配色設定 --- */
         :root {
@@ -35,16 +35,14 @@
             --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-         {
-
-        /* 加入這一行 */
-            font-family: "Microsoft JhengHei", "微軟正黑體", -apple-system, sans-serif;
-             
+        body {
+            /* ✅ 設定字體為微軟正黑體 */
+            font-family: "Microsoft JhengHei", "微軟正黑體", -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0; padding: 0; transition: 0.4s ease;
             padding-bottom: 120px; padding-top: 80px; 
+            overscroll-behavior-y: none; /* 防止手機下拉回彈 */
         }
 
         /* 頂部功能列 */
@@ -64,7 +62,7 @@
         
         .header-area { text-align: center; margin-bottom: 40px; margin-top: 20px; }
         .welcome-text { font-size: 14px; color: var(--text-color); opacity: 0.6; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
-        .main-title { font-size: 32px; margin: 0; color: var(--fab-bg); font-weight: 900; letter-spacing: -1px; }
+        .main-title { font-size: 32px; margin: 0; color: var(--fab-bg); font-weight: 900; letter-spacing: -1px; line-height: 1.2; }
 
         /* 歌曲卡片列表 */
         .song-list { display: flex; flex-direction: column; gap: 16px; }
@@ -88,36 +86,7 @@
         .card-title { font-size: 18px; font-weight: 700; line-height: 1.3; }
         .card-arrow { opacity: 0.3; font-size: 20px; margin-left: 10px; }
 
-        /* FAB & Menu (樣式保留) */
-        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
-        .fab-btn {
-            width: 64px; height: 64px; border-radius: 24px;
-            background-color: var(--fab-bg); color: var(--fab-text);
-            border: none; box-shadow: var(--shadow); font-size: 28px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.3s;
-        }
-        .fab-btn:active { transform: scale(0.9); }
-        
-        .song-menu {
-            position: absolute; bottom: 80px; left: 0;
-            background-color: var(--menu-bg); border-radius: 24px;
-            width: 240px; padding: 8px; box-shadow: var(--shadow);
-            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
-            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
-        }
-        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-        .menu-header { font-size: 12px; color: var(--text-color); opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
-        .menu-item {
-            display: flex; align-items: center; padding: 14px 16px;
-            color: var(--text-color); text-decoration: none; border-radius: 16px;
-            margin-bottom: 2px; font-weight: 600; font-size: 14px; transition: 0.2s;
-        }
-        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
-        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
-        .menu-item span { margin-right: 10px; }
-
-        /* --- 新增：安裝教學區塊 --- */
+        /* 安裝教學區塊 */
         .install-guide {
             margin-top: 40px;
             background-color: var(--card-bg);
@@ -131,7 +100,7 @@
             padding: 15px 0;
             font-weight: bold;
             cursor: pointer;
-            list-style: none; /* 隱藏預設箭頭 */
+            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -151,23 +120,24 @@
         .guide-step { margin-bottom: 10px; }
         .guide-icon { font-size: 18px; margin-right: 5px; vertical-align: middle;}
 
+        /* Footer 容器 (內容由 menu.js 填入) */
         .footer { margin-top: 30px; text-align: center; color: var(--text-color); opacity: 0.4; font-size: 12px; font-style: italic; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="app-name">Moonbyul Fanchant</div>
+        <div class="app-name">M.B Fanchant</div>
         <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
     </div>
 
     <div class="content">
         <div class="header-area">
-            <div class="welcome-text">Welcome SHOOTING STAR</div>
-            <h1 class="main-title">Cheering Guide</h1>
+            <div class="welcome-text">Welcome MooMoo</div>
+            <h1 class="main-title">Moon Byul<br>Cheering Guide</h1>
         </div>
 
-<div class="song-list">
+        <div class="song-list">
             <a href="sos.html" class="song-card">
                 <div class="card-info"><span class="card-icon">💿</span><span class="card-title">S.O.S</span></div><span class="card-arrow">➜</span>
             </a>
@@ -238,32 +208,23 @@
                 <div class="card-info"><span class="card-icon">💔</span><span class="card-title">愛你但說不出口</span></div><span class="card-arrow">➜</span>
             </a>
         </div>
-        
+
         <details class="install-guide">
             <summary>📱 如何安裝成 App？</summary>
             <div class="guide-content">
                 <div class="guide-step">
                     <strong>🍎 iOS (iPhone/iPad):</strong><br>
-                    使用 Safari 打開 ➜ 點擊底部「分享」圖示 ➜選擇「加入主畫面」
+                    用 Safari 打開 ➜ 點擊底部「分享」圖示 ➜ 選擇「加入主畫面」。
                 </div>
                 <hr style="opacity: 0.1; margin: 10px 0;">
                 <div class="guide-step">
                     <strong>🤖 Android (Chrome):</strong><br>
-                    點擊右上角選單 ➜ 選擇「安裝應用程式」或「加到主畫面」
+                    點擊右上角選單 ➜ 選擇「安裝應用程式」或「加到主畫面」。
                 </div>
             </div>
         </details>
 
-        <div class="footer">
-            <p style="margin-bottom: 10px; font-weight: bold;">Create for 문별&별똥별</p>
-            
-            <p style="font-size: 10px; opacity: 0.6; line-height: 1.6; margin: 0;">
-                本網站為粉絲自製，非官方應用程式。<br>
-                內容僅供個人學習與應援使用，<br>
-                嚴禁商業用途或未經授權的修改與轉載。<br>
-                (空耳部分由 Gemini 協助製作)
-            </p>
-        </div>
+        <div class="footer"></div>
     </div>
 
     <script src="menu.js"></script>
@@ -274,7 +235,6 @@
             const btn = document.querySelector('.theme-toggle');
             if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
         }
-        // toggleMenu 已移至 menu.js
     </script>
 
 </body>
