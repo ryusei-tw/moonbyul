@@ -1,20 +1,28 @@
 // --- 設定歌曲清單 (加歌只要改這裡) ---
 const songs = [
     { title: "S.O.S", file: "sos.html", icon: "💿" },
+    { title: "TOUCHIN&MOVIN", file: "touchinmovin.html", icon: "💃" },
+    { title: "Eclipse", file: "eclipse.html", icon: "🌑" },
+    { title: "C.I.T.T", file: "citt.html", icon: "🧀" },
+    { title: "Think About", file: "thinkabout.html", icon: "💭" },
     { title: "Goodbyes and Sad Eyes", file: "goodbyesandsadeyes.html", icon: "🫧" },
+    { title: "Memories", file: "memories.html", icon: "🎞️" },
     { title: "ICY BBY", file: "icybby.html", icon: "🧊" },
+    { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
+    { title: "LUNATIC", file: "lunatic.html", icon: "👻" },
+    { title: "Take-off", file: "takeoff.html", icon: "✈️" },
+    { title: "Shutdown", file: "shutdown.html", icon: "💋" },
+    { title: "Absence", file: "absence.html", icon: "☁️" },
+    { title: "Over You", file: "overyou.html", icon: "🥀" },
+    { title: "ddu ddu ddu", file: "ddudduddu.html", icon: "🌧️" },
+    { title: "I'll throw it away", file: "throwitaway.html", icon: "🗑️" },
+    { title: "Trying to say good-bye", file: "tryingtobegoodbye.html", icon: "☂️" },
+    { title: "Love & Hate", file: "loveandhate.html", icon: "🖤" },
+    { title: "My moon", file: "mymoon.html", icon: "🌙" },
+    { title: "Snow", file: "snow.html", icon: "❄️" },
     { title: "Is This Love?", file: "isthislove.html", icon: "💘" },
     { title: "PRESENT", file: "present.html", icon: "🎁" },
-    { title: "Eclipse", file: "eclipse.html", icon: "🌑" },    
-    { title: "LUNATIC", file: "lunatic.html", icon: "👻" },
-    { title: "Absence", file: "absence.html", icon: "☁️" },
-    { title: "Think About", file: "thinkabout.html", icon: "💭" },
-    { title: "C.I.T.T", file: "citt.html", icon: "🧀" },
-    { title: "TOUCHIN&MOVIN", file: "touchinmovin.html", icon: "💃" },
-    { title: "Memories", file: "memories.html", icon: "🎞️" },
-    { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
-    { title: "My moon", file: "mymoon.html", icon: "🌙" },
-    { title: "愛你但說不出口", file: "aini.html", icon: "🎧" },
+    { title: "愛你但說不出口", file: "aini.html", icon: "💔" },
     // ⬇️ 以後有新歌，複製上面一行改掉內容即可 ⬇️
     // { title: "新歌名", file: "新檔案.html", icon: "🎵" },
 ];
@@ -73,7 +81,6 @@ let menuItemsHTML = "";
 
 songs.forEach(song => {
     const isActive = currentPath === song.file ? "active" : "";
-    // 這裡改用 sheet-item 樣式
     menuItemsHTML += `
         <a href="${song.file}" class="sheet-item ${isActive}">
             <span class="sheet-icon">${song.icon}</span> 
