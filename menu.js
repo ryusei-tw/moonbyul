@@ -63,16 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (footer) {
         footer.innerHTML = `
             <p style="font-size: 10px; font-weight: bold;">
+            <br>
+            獻給 Moonbyul & Shooting Star <br>
+            希望所有人都能盡情享受演唱會跟星歌房！<br>
             Create for Moonbyul & Shooting Star<br>
             Hope everyone enjoys the concert to the fullest!<br>
-            獻給 Moonbyul & Shooting Star 
-            希望所有人都能盡情享受演唱會跟星歌房！
             </p>
+            <br>
             <p style="font-size: 10px; opacity: 0.6; line-height: 1.6; margin: 0;">
-                本網站為粉絲自製。<br>
-                內容僅供個人學習與應援使用，<br>
-                嚴禁商業用途或未經授權的修改與轉載。<br>
-                (空耳部分由 Gemini 協助製作)<br>
+                本網站為粉絲自製，內容僅供個人學習與應援使用，<br>
+                嚴禁商業用途或未經授權的修改與轉載。(空耳部分由 Gemini 協助製作)<br>
                 This is a fan-made website.<br>
                 The content is intended solely for personal study and cheering practice.<br>
                 Commercial use, unauthorized modification, or reposting is strictly prohibited.<br>
