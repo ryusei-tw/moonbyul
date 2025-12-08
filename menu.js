@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p style="font-size: 10px; opacity: 0.6; line-height: 1.6; margin: 0;">
                 本網站為粉絲自製，內容僅供個人學習與應援使用，<br>
                 嚴禁商業用途或未經授權的修改與轉載。<br>
-                製作 @moonstaratm999
-                中文空耳協作 @only_mamoo_1118
+                製作 @moonstaratm999<br>
+                中文空耳協作 @only_mamoo_1118<br>
             </p>
         `;
     }
