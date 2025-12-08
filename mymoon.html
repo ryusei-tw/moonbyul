@@ -1,387 +1,387 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My moon - Moon Byul</title>
-    <style>
-        /* --- [laundri] 專輯配色設定 --- */
-        :root {
-            --bg-color: #f0f4f8;       /* 淺灰藍 */
-            --text-color: #2d3436;     /* 深灰 */
-            --bar-bg: rgba(255, 255, 255, 0.90);
-            --accent: #FF6B35;         /* 活力橙 */
-            --fab-bg: #4DA1FF;         /* 天空藍 */
-            --fab-text: #ffffff;
-            --menu-bg: #ffffff;
-            --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
-            /* 語言顏色 */
-            --highlight-color: #d32f2f; /* 日 (紅) */
-            --eng-color: #2e7d32;       /* 英 (綠) */
-            --zh-color: #e65100;        /* 中 (橘) */
-        }
-        body.dark-mode {
-            --bg-color: #101820;       /* 深丹寧 */
-            --text-color: #dfe6e9;     /* 灰白 */
-            --bar-bg: rgba(16, 24, 32, 0.95);
-            --accent: #FF9F43;
-            --fab-bg: #2e86de;
-            --fab-text: #ffffff;
-            --menu-bg: #1e272e;
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            /* 深色模式下的語言顏色 */
-            --highlight-color: #ffeb3b;
-            --eng-color: #69f0ae;
-            --zh-color: #ffab91;
-        }
-        body {
-            background-color: var(--bg-color); color: var(--text-color);
-            font-family: -apple-system, sans-serif;
-            margin: 0; padding: 0; transition: 0.4s ease;
-            padding-bottom: 120px; padding-top: 80px; 
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My moon - Moon Byul</title>
+    <style>
+        /* --- [laundri] 專輯配色設定 --- */
+        :root {
+            --bg-color: #f0f4f8;       /* 淺灰藍 */
+            --text-color: #2d3436;     /* 深灰 */
+            --bar-bg: rgba(255, 255, 255, 0.90);
+            --accent: #FF6B35;         /* 活力橙 */
+            --fab-bg: #4DA1FF;         /* 天空藍 */
+            --fab-text: #ffffff;
+            --menu-bg: #ffffff;
+            --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
+            /* 語言顏色 */
+            --highlight-color: #d32f2f; /* 日 (紅) */
+            --eng-color: #2e7d32;       /* 英 (綠) */
+            --zh-color: #e65100;        /* 中 (橘) */
+        }
+        body.dark-mode {
+            --bg-color: #101820;       /* 深丹寧 */
+            --text-color: #dfe6e9;     /* 灰白 */
+            --bar-bg: rgba(16, 24, 32, 0.95);
+            --accent: #FF9F43;
+            --fab-bg: #2e86de;
+            --fab-text: #ffffff;
+            --menu-bg: #1e272e;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* 深色模式下的語言顏色 */
+            --highlight-color: #ffeb3b;
+            --eng-color: #69f0ae;
+            --zh-color: #ffab91;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: -apple-system, sans-serif;
+            margin: 0; padding: 0; transition: 0.4s ease;
+            padding-bottom: 120px; padding-top: 80px; 
+        }
 
-        /* 頂部列 */
-        .top-bar {
-            position: fixed; top: 0; left: 0; right: 0; height: 64px;
-            background-color: var(--bar-bg); backdrop-filter: blur(12px);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 24px; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        .theme-toggle { font-size: 22px; background: none; border: none; cursor: pointer; padding: 8px; }
-        .lang-chips { display: flex; gap: 6px; background-color: rgba(0,0,0,0.03); padding: 4px; border-radius: 30px; }
-        .chip {
-            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: 0.3s; color: var(--text-color); opacity: 0.6;
-        }
-        .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        /* 頂部列 */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background-color: var(--bar-bg); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .theme-toggle { font-size: 22px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .lang-chips { display: flex; gap: 6px; background-color: rgba(0,0,0,0.03); padding: 4px; border-radius: 30px; }
+        .chip {
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; color: var(--text-color); opacity: 0.6;
+        }
+        .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 
-        /* 內容區 */
-        .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
-        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
-        
-        .line-box { 
-            margin-bottom: 24px; padding: 16px;
-            background: rgba(255,255,255,0.5); border-radius: 16px;
-        }
-        body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
+        /* 內容區 */
+        .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
+        
+        .line-box { 
+            margin-bottom: 24px; padding: 16px;
+            background: rgba(255,255,255,0.5); border-radius: 16px;
+        }
+        body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
 
-        .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
-        /* 語言切換邏輯 */
-        .jp { color: var(--highlight-color); display: block; }
-        .en, .zh { display: none; }
-        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
-        .zh { color: var(--zh-color); font-weight: bold; }
-        
-        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
+        .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
+        /* 語言切換邏輯 */
+        .jp { color: var(--highlight-color); display: block; }
+        .en, .zh { display: none; }
+        .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
+        .zh { color: var(--zh-color); font-weight: bold; }
+        
+        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
 
-        /* FAB & Menu (menu.js用) */
-        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
-        .fab-btn {
-            width: 64px; height: 64px; border-radius: 24px;
-            background-color: var(--fab-bg); color: var(--fab-text);
-            border: none; box-shadow: var(--shadow); font-size: 28px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.3s;
-        }
-        .fab-btn:active { transform: scale(0.9); }
-        
-        .song-menu {
-            position: absolute; bottom: 80px; left: 0;
-            background-color: var(--menu-bg); border-radius: 24px;
-            width: 240px; padding: 8px; box-shadow: var(--shadow);
-            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
-            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
-        }
-        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-        .menu-header { font-size: 12px; opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
-        .menu-item {
-            display: flex; align-items: center; padding: 14px 16px;
-            color: var(--text-color); text-decoration: none; border-radius: 16px;
-            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
-        }
-        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
-        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
-        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
-        .menu-item span { margin-right: 10px; }
-    </style>
+        /* FAB & Menu (menu.js用) */
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: var(--fab-text);
+            border: none; box-shadow: var(--shadow); font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .fab-btn:active { transform: scale(0.9); }
+        
+        .song-menu {
+            position: absolute; bottom: 80px; left: 0;
+            background-color: var(--menu-bg); border-radius: 24px;
+            width: 240px; padding: 8px; box-shadow: var(--shadow);
+            opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
+            pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .song-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .menu-header { font-size: 12px; opacity: 0.5; padding: 10px 16px 5px; text-transform: uppercase; font-weight: bold; }
+        .menu-item {
+            display: flex; align-items: center; padding: 14px 16px;
+            color: var(--text-color); text-decoration: none; border-radius: 16px;
+            margin-bottom: 2px; font-weight: 600; font-size: 15px; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: rgba(0,0,0,0.04); }
+        body.dark-mode .menu-item:hover { background-color: rgba(255,255,255,0.1); }
+        .menu-item.active { color: var(--fab-bg); background-color: rgba(77, 161, 255, 0.1); }
+        .menu-item span { margin-right: 10px; }
+    </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
-        <div class="lang-chips">
-            <div class="chip active" id="btn-jp" onclick="showLang('jp')">日</div>
-            <div class="chip" id="btn-en" onclick="showLang('en')">英</div>
-            <div class="chip" id="btn-zh" onclick="showLang('zh')">中</div>
-        </div>
-    </div>
+    <div class="top-bar">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <div class="lang-chips">
+            <div class="chip active" id="btn-jp" onclick="showLang('jp')">日</div>
+            <div class="chip" id="btn-en" onclick="showLang('en')">英</div>
+            <div class="chip" id="btn-zh" onclick="showLang('zh')">中</div>
+        </div>
+    </div>
 
-    <div class="content">
-        <h2 class="song-title">My moon</h2>
+    <div class="content">
+        <h2 class="song-title">My moon</h2>
 
-        <div class="section-title">Verse 1</div>
-        <div class="line-box">
-            <div class="kr">궁금한 것들이 많죠</div>
-            <div class="jp">クングマン ゴットゥリ マンチョ</div>
-            <div class="en">Gunggeumhan geotdeuri manchyo</div>
-            <div class="zh">昆菇慢 勾ㄉ哩 滿揪</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">이런 마음 조금 유치해도 난</div>
-            <div class="jp">イロン マウム チョグム ユチヘド ナン</div>
-            <div class="en">Ireon maeum jogeum yuchihaedo nan</div>
-            <div class="zh">依攏媽恩 揪跟 u七嘿都 難</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">뻔한 노래를 만들어요</div>
-            <div class="jp">ッポナン ノレルル マンドゥロヨ</div>
-            <div class="en">Ppeonhan noraereul mandeureoyo</div>
-            <div class="zh">崩難 no勒 滿的摟喲</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">오늘 밤 별이 가득한 하늘</div>
-            <div class="jp">オヌル パム ピョリ カドゥカン ハヌル</div>
-            <div class="en">Oneul bam byeori gadeukhan haneul</div>
-            <div class="zh">歐呢 伴 飄里 咖的看 哈呢</div>
-        </div>
+        <div class="section-title">Verse 1</div>
+        <div class="line-box">
+            <div class="kr">궁금한 것들이 많죠</div>
+            <div class="jp">クングマン ゴットゥリ マンチョ</div>
+            <div class="en">Gunggeumhan geotdeuri manchyo</div>
+            <div class="zh">昆菇慢 勾ㄉ哩 滿揪</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">이런 마음 조금 유치해도 난</div>
+            <div class="jp">イロン マウム チョグム ユチヘド ナン</div>
+            <div class="en">Ireon maeum jogeum yuchihaedo nan</div>
+            <div class="zh">依攏媽恩 揪跟 u七嘿都 難</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">뻔한 노래를 만들어요</div>
+            <div class="jp">ッポナン ノレルル マンドゥロヨ</div>
+            <div class="en">Ppeonhan noraereul mandeureoyo</div>
+            <div class="zh">崩難 no勒 滿的摟喲</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">오늘 밤 별이 가득한 하늘</div>
+            <div class="jp">オヌル パム ピョリ カドゥカン ハヌル</div>
+            <div class="en">Oneul bam byeori gadeukhan haneul</div>
+            <div class="zh">歐呢 伴 飄里 咖的看 哈呢</div>
+        </div>
 
-        <div class="section-title">Pre-Chorus</div>
-        <div class="line-box">
-            <div class="kr">네가 내게 녹아내려</div>
-            <div class="jp">ネガ ネゲ ノガネリョ</div>
-            <div class="en">Nega naege noganaeryeo</div>
-            <div class="zh">耨嘎 餒給 耨嘎餒溜</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">Ice cream처럼</div>
-            <div class="jp">Ice creamチョロム</div>
-            <div class="en">Ice cream cheoreom</div>
-            <div class="zh">Ice cream 邱龍</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">난 어쩔 줄 모르고</div>
-            <div class="jp">ナン オッチョル チュル モルゴ</div>
-            <div class="en">Nan eojjeol jul moreugo</div>
-            <div class="zh">難 歐揪 朱 摸了勾</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">온통 너로 가득한 순간</div>
-            <div class="jp">オントン ノロ カドゥカン スンガン</div>
-            <div class="en">Ontong neoro gadeukhan sungan</div>
-            <div class="zh">翁通 耨摟 卡的坎 孫甘</div>
-        </div>
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box">
+            <div class="kr">네가 내게 녹아내려</div>
+            <div class="jp">ネガ ネゲ ノガネリョ</div>
+            <div class="en">Nega naege noganaeryeo</div>
+            <div class="zh">耨嘎 餒給 耨嘎餒溜</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Ice cream처럼</div>
+            <div class="jp">Ice creamチョロム</div>
+            <div class="en">Ice cream cheoreom</div>
+            <div class="zh">Ice cream 邱龍</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">난 어쩔 줄 모르고</div>
+            <div class="jp">ナン オッチョル チュル モルゴ</div>
+            <div class="en">Nan eojjeol jul moreugo</div>
+            <div class="zh">難 歐揪 朱 摸了勾</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">온통 너로 가득한 순간</div>
+            <div class="jp">オントン ノロ カドゥカン スンガン</div>
+            <div class="en">Ontong neoro gadeukhan sungan</div>
+            <div class="zh">翁通 耨摟 卡的坎 孫甘</div>
+        </div>
 
-        <div class="section-title">Chorus</div>
-        <div class="line-box">
-            <div class="kr">반달이 된 두 눈</div>
-            <div class="jp">パンダリ デン トゥ ヌン</div>
-            <div class="en">Bandari doen du nun</div>
-            <div class="zh">潘搭哩 堆 吐 嫩</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">조그맣던 입술</div>
-            <div class="jp">チョグマットン イプスル</div>
-            <div class="en">Jogeumatdeon ipsul</div>
-            <div class="zh">酒ㄎ滿冬 依蘇</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
-            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
-            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
-            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
-            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
-            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
-            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">‘괜찮다' 말해주던 너라서 고마워</div>
-            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
-            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
-            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
-        </div>
+        <div class="section-title">Chorus</div>
+        <div class="line-box">
+            <div class="kr">반달이 된 두 눈</div>
+            <div class="jp">パンダリ デン トゥ ヌン</div>
+            <div class="en">Bandari doen du nun</div>
+            <div class="zh">潘搭哩 堆 吐 嫩</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">조그맣던 입술</div>
+            <div class="jp">チョグマットン イプスル</div>
+            <div class="en">Jogeumatdeon ipsul</div>
+            <div class="zh">酒ㄎ滿冬 依蘇</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
+            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
+            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
+            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
+            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
+            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
+            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">‘괜찮다' 말해주던 너라서 고마워</div>
+            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
+            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
+            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
+        </div>
 
-        <div class="section-title">Verse 2</div>
-        <div class="line-box">
-            <div class="kr">그 어떤 떨림들도</div>
-            <div class="jp">ク オットン トルリムドゥルド</div>
-            <div class="en">Geu eotteon tteollimdeuldo</div>
-            <div class="zh">ㄎ 歐東 斗林的豆</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">네 앞에선 숨기지 못해</div>
-            <div class="jp">ニ アペソン スムギジ モッテ</div>
-            <div class="en">Ne apeseon sumgiji mothae</div>
-            <div class="zh">你 阿琣聳 孫gi機 某ㄊㄟˇ</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">내 한마디로</div>
-            <div class="jp">ネ ハンマディロ</div>
-            <div class="en">Nae hanmadiro</div>
-            <div class="zh">餒 韓馬低羅</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">네 입가에 미소가 번지면 따라 웃게 돼</div>
-            <div class="jp">ニ イプカエ ミソガ ポンジミョン タラ ウッケ デ</div>
-            <div class="en">Ne ipgae misogabeonjimyeon ttara utge dwae</div>
-            <div class="zh">你 依嘎A 咪搜嘎 崩幾謬 打拉 舞給 堆</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">그래 가자</div>
-            <div class="jp">クレ カジャ</div>
-            <div class="en">Geurae gaja</div>
-            <div class="zh">ㄎ雷 嘎夾</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">누가 뭐라든 네 말이 다 맞아</div>
-            <div class="jp">ヌガ ムォラドゥン ニ マリ タ マジャ</div>
-            <div class="en">Nuga mworadeun ne mari da maja</div>
-            <div class="zh">努嘎 某拉燈 你 媽哩 打 媽夾</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">가는 길이 좀 오래 걸려도</div>
-            <div class="jp">カヌン キリ チョム オレ コルリョド</div>
-            <div class="en">Ganeun giri jom orae geollyeodo</div>
-            <div class="zh">嘎能 gi哩 冏 歐雷 勾溜都</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">도착하면 깨워줄게</div>
-            <div class="jp">トチャカミョン ッケウォジュルケ</div>
-            <div class="en">Dochakhamyeon kkaewojulge</div>
-            <div class="zh">偷掐卡謬 ㄍㄟ窩朱給</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">자도 괜찮아</div>
-            <div class="jp">チャド ケンチャナ</div>
-            <div class="en">Jado gwaenchana</div>
-            <div class="zh">掐都 kwaen掐哪</div>
-        </div>
+        <div class="section-title">Verse 2</div>
+        <div class="line-box">
+            <div class="kr">그 어떤 떨림들도</div>
+            <div class="jp">ク オットン トルリムドゥルド</div>
+            <div class="en">Geu eotteon tteollimdeuldo</div>
+            <div class="zh">ㄎ 歐東 斗林的豆</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">네 앞에선 숨기지 못해</div>
+            <div class="jp">ニ アペソン スムギジ モッテ</div>
+            <div class="en">Ne apeseon sumgiji mothae</div>
+            <div class="zh">你 阿琣聳 孫gi機 某ㄊㄟˇ</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">내 한마디로</div>
+            <div class="jp">ネ ハンマディロ</div>
+            <div class="en">Nae hanmadiro</div>
+            <div class="zh">餒 韓馬低羅</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">네 입가에 미소가 번지면 따라 웃게 돼</div>
+            <div class="jp">ニ イプカエ ミソガ ポンジミョン タラ ウッケ デ</div>
+            <div class="en">Ne ipgae misogabeonjimyeon ttara utge dwae</div>
+            <div class="zh">你 依嘎A 咪搜嘎 崩幾謬 打拉 舞給 堆</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">그래 가자</div>
+            <div class="jp">クレ カジャ</div>
+            <div class="en">Geurae gaja</div>
+            <div class="zh">ㄎ雷 嘎夾</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">누가 뭐라든 네 말이 다 맞아</div>
+            <div class="jp">ヌガ ムォラドゥン ニ マリ タ マジャ</div>
+            <div class="en">Nuga mworadeun ne mari da maja</div>
+            <div class="zh">努嘎 某拉燈 你 媽哩 打 媽夾</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">가는 길이 좀 오래 걸려도</div>
+            <div class="jp">カヌン キリ チョム オレ コルリョド</div>
+            <div class="en">Ganeun giri jom orae geollyeodo</div>
+            <div class="zh">嘎能 gi哩 冏 歐雷 勾溜都</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">도착하면 깨워줄게</div>
+            <div class="jp">トチャカミョン ッケウォジュルケ</div>
+            <div class="en">Dochakhamyeon kkaewojulge</div>
+            <div class="zh">偷掐卡謬 ㄍㄟ窩朱給</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">자도 괜찮아</div>
+            <div class="jp">チャド ケンチャナ</div>
+            <div class="en">Jado gwaenchana</div>
+            <div class="zh">掐都 kwaen掐哪</div>
+        </div>
 
-        <div class="section-title">Pre-Chorus</div>
-        <div class="line-box">
-            <div class="kr">네가 내게 사라질까</div>
-            <div class="jp">ネガ ネゲ サラジルッカ</div>
-            <div class="en">Nega naege sarajilkka</div>
-            <div class="zh">耨嘎 餒給 撒拉基嘎</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">아이처럼 난 어쩔 줄 모르고</div>
-            <div class="jp">アイチョロム ナン オッチョル チュル モルゴ</div>
-            <div class="en">Aicheoreom nan eojjeol jul moreugo</div>
-            <div class="zh">阿依秋龍 難 歐揪 朱 摸了勾</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">온통 너로 가득한 순간</div>
-            <div class="jp">オントン ノロ カドゥカン スンガン</div>
-            <div class="en">Ontong neoro gadeukhan sungan</div>
-            <div class="zh">翁通 耨摟 卡的坎 孫甘</div>
-        </div>
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box">
+            <div class="kr">네가 내게 사라질까</div>
+            <div class="jp">ネガ ネゲ サラジルッカ</div>
+            <div class="en">Nega naege sarajilkka</div>
+            <div class="zh">耨嘎 餒給 撒拉基嘎</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">아이처럼 난 어쩔 줄 모르고</div>
+            <div class="jp">アイチョロム ナン オッチョル チュル モルゴ</div>
+            <div class="en">Aicheoreom nan eojjeol jul moreugo</div>
+            <div class="zh">阿依秋龍 難 歐揪 朱 摸了勾</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">온통 너로 가득한 순간</div>
+            <div class="jp">オントン ノロ カドゥカン スンガン</div>
+            <div class="en">Ontong neoro gadeukhan sungan</div>
+            <div class="zh">翁通 耨摟 卡的坎 孫甘</div>
+        </div>
 
-        <div class="section-title">Chorus</div>
-        <div class="line-box">
-            <div class="kr">반달이 된 두 눈</div>
-            <div class="jp">パンダリ デン トゥ ヌン</div>
-            <div class="en">Bandari doen du nun</div>
-            <div class="zh">潘搭哩 堆 吐 嫩</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">조그맣던 입술</div>
-            <div class="jp">チョグマットン イプスル</div>
-            <div class="en">Jogeumatdeon ipsul</div>
-            <div class="zh">酒ㄎ滿冬 依蘇</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
-            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
-            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
-            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
-            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
-            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
-            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">‘괜찮다’ 말해주던 너라서 고마워</div>
-            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
-            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
-            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
-        </div>
+        <div class="section-title">Chorus</div>
+        <div class="line-box">
+            <div class="kr">반달이 된 두 눈</div>
+            <div class="jp">パンダリ デン トゥ ヌン</div>
+            <div class="en">Bandari doen du nun</div>
+            <div class="zh">潘搭哩 堆 吐 嫩</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">조그맣던 입술</div>
+            <div class="jp">チョグマットン イプスル</div>
+            <div class="en">Jogeumatdeon ipsul</div>
+            <div class="zh">酒ㄎ滿冬 依蘇</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
+            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
+            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
+            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
+            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
+            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
+            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">‘괜찮다’ 말해주던 너라서 고마워</div>
+            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
+            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
+            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
+        </div>
 
-        <div class="section-title">Bridge</div>
-        <div class="line-box">
-            <div class="kr">유난히 오늘 너와 난</div>
-            <div class="jp">ユナニ オヌル ノワ ナン</div>
-            <div class="en">Yunanhi oneul neowa nan</div>
-            <div class="zh">u難尼 歐呢 no挖 難</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">걸음이 느리게 흘러가요</div>
-            <div class="jp">コルミ ヌリゲ フルロガヨ</div>
-            <div class="en">Georeumi neurige heulleogayo</div>
-            <div class="zh">摳ㄌ咪 呢哩給 ㄏ樓嘎喲</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">밤이 새도록 걸어볼까</div>
-            <div class="jp">パミ セドロク コロボルッカ</div>
-            <div class="en">Bami saedorok georeobolkka</div>
-            <div class="zh">旁咪 誰斗樓 勾樓啵嘎</div>
-        </div>
+        <div class="section-title">Bridge</div>
+        <div class="line-box">
+            <div class="kr">유난히 오늘 너와 난</div>
+            <div class="jp">ユナニ オヌル ノワ ナン</div>
+            <div class="en">Yunanhi oneul neowa nan</div>
+            <div class="zh">u難尼 歐呢 no挖 難</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">걸음이 느리게 흘러가요</div>
+            <div class="jp">コルミ ヌリゲ フルロガヨ</div>
+            <div class="en">Georeumi neurige heulleogayo</div>
+            <div class="zh">摳ㄌ咪 呢哩給 ㄏ樓嘎喲</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">밤이 새도록 걸어볼까</div>
+            <div class="jp">パミ セドロク コロボルッカ</div>
+            <div class="en">Bami saedorok georeobolkka</div>
+            <div class="zh">旁咪 誰斗樓 勾樓啵嘎</div>
+        </div>
 
-        <div class="section-title">Outro</div>
-        <div class="line-box">
-            <div class="kr">반달이 된 두 눈</div>
-            <div class="jp">パンダリ デン トゥ ヌン</div>
-            <div class="en">Bandari doen du nun</div>
-            <div class="zh">潘搭哩 堆 吐 嫩</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">조그맣던 입술</div>
-            <div class="jp">チョグマットン イプスル</div>
-            <div class="en">Jogeumatdeon ipsul</div>
-            <div class="zh">酒ㄎ滿冬 依蘇</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
-            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
-            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
-            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
-            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
-            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
-            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
-        </div>
-        <div class="line-box">
-            <div class="kr">‘괜찮다' 말해주던 너라서 고마워</div>
-            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
-            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
-            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
-        </div>
+        <div class="section-title">Outro</div>
+        <div class="line-box">
+            <div class="kr">반달이 된 두 눈</div>
+            <div class="jp">パンダリ デン トゥ ヌン</div>
+            <div class="en">Bandari doen du nun</div>
+            <div class="zh">潘搭哩 堆 吐 嫩</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">조그맣던 입술</div>
+            <div class="jp">チョグマットン イプスル</div>
+            <div class="en">Jogeumatdeon ipsul</div>
+            <div class="zh">酒ㄎ滿冬 依蘇</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">귓가에 맴도는 장난스런 그 말투</div>
+            <div class="jp">クィッカエ メムドヌン チャンナンスロン ク マルトゥ</div>
+            <div class="en">Gwitgae maemdoneun jangnanseureon geu maltu</div>
+            <div class="zh">gwi嘎也 滿都能 搶難斯龍 ㄎ 買吐</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">깍지 낀 이 두 손에 땀이 차올라도</div>
+            <div class="jp">ッカクチ ッキン イ トゥ ソネ ッタミ チャオルラド</div>
+            <div class="en">Kkakji kkin i du sone ttami chaollado</div>
+            <div class="zh">嘎基 gin 依 杜 搜餒 打咪 掐歐拉都</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">‘괜찮다' 말해주던 너라서 고마워</div>
+            <div class="jp">‘ケンチャンタ’ マレジュドン ノラソ コマウォ</div>
+            <div class="en">'Gwaenchanta' malhaejudeon neoraseo gomawo</div>
+            <div class="zh">kwaen掐塔’ 馬勒朱冬 no喇so 摳馬窩</div>
+        </div>
 
-        <div class="footer">Create for moonbyul's atm</div>
-    </div>
+        <div class="footer">Create for moonbyul's atm</div>
+    </div>
 
-    <script src="menu.js"></script>
+    <script src="menu.js"></script>
 
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const btn = document.querySelector('.theme-toggle');
-            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
-        }
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            if(btn) btn.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+        }
 
-        function showLang(lang) {
-            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
-        }
-    </script>
+        function showLang(lang) {
+            document.querySelectorAll('.jp, .en, .zh').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
 </body>
 </html>
