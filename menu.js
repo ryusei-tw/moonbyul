@@ -157,88 +157,86 @@ function toggleMenu() {
 }
 
 // ==========================================
-// 4. 注入 CSS (含微軟正黑體設定) - 🔓 已解除限制版
+// 4. 注入 CSS (含微軟正黑體設定)
 // ==========================================
 if (!document.getElementById('app-style')) {
-    const styleSheet = document.createElement("style");
-    styleSheet.id = 'app-style';
-    styleSheet.innerHTML = `
-        /* --- 全域設定 --- */
-        * {
-            /* 保留您的字體設定 */
-            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif !important;
-            
-            /* ✅ 已移除 user-select: none (現在可以選取文字了) */
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body { overscroll-behavior-y: none; }
-        
-        /* 讓輸入框可以打字 */
-        input, textarea { -webkit-user-select: text !important; user-select: text !important; }
-        
-        /* --- 以下是樣式設定 (保持原樣) --- */
-        .home-btn { padding: 8px; border-radius: 50%; display: flex; align-items: center; opacity: 0.7; }
-        .home-btn:hover { background-color: rgba(0,0,0,0.05); opacity: 1; }
-        body.dark-mode .home-btn:hover { background-color: rgba(255,255,255,0.1); }
-        
-        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
-        .fab-btn {
-            width: 64px; height: 64px; border-radius: 24px;
-            background-color: var(--fab-bg); color: #fff;
-            border: none; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            font-size: 28px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.2s;
-        }
-        .fab-btn:active { transform: scale(0.9); }
+    const styleSheet = document.createElement("style");
+    styleSheet.id = 'app-style';
+    styleSheet.innerHTML = `
+        /* --- 全域設定：強制使用微軟正黑體 --- */
+        * {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif !important; /* ✅ 這裡改了字體 */
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* 讓輸入框還是可以打字 */
+        input, textarea { -webkit-user-select: text !important; user-select: text !important; }
+        
+        /* --- 以下是樣式設定 (不用動) --- */
+        .home-btn { padding: 8px; border-radius: 50%; display: flex; align-items: center; opacity: 0.7; }
+        .home-btn:hover { background-color: rgba(0,0,0,0.05); opacity: 1; }
+        body.dark-mode .home-btn:hover { background-color: rgba(255,255,255,0.1); }
+        
+        .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
+        .fab-btn {
+            width: 64px; height: 64px; border-radius: 24px;
+            background-color: var(--fab-bg); color: #fff;
+            border: none; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            font-size: 28px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .fab-btn:active { transform: scale(0.9); }
 
-        .sheet-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); z-index: 201;
-            opacity: 0; visibility: hidden; transition: 0.3s;
-            backdrop-filter: blur(2px);
-        }
-        .sheet-overlay.show { opacity: 1; visibility: visible; }
+        .sheet-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 201;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+            backdrop-filter: blur(2px);
+        }
+        .sheet-overlay.show { opacity: 1; visibility: visible; }
 
-        .bottom-sheet {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            max-height: 70vh; background-color: var(--menu-bg);
-            border-radius: 24px 24px 0 0; z-index: 202;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column;
-            box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
-        }
-        .bottom-sheet.show { transform: translateY(0); }
+        .bottom-sheet {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            max-height: 70vh; background-color: var(--menu-bg);
+            border-radius: 24px 24px 0 0; z-index: 202;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
+        }
+        .bottom-sheet.show { transform: translateY(0); }
 
-        .sheet-handle-bar { padding: 12px 0; display: flex; justify-content: center; }
-        .sheet-handle { width: 40px; height: 5px; background: #ddd; border-radius: 10px; }
-        .sheet-header-title { text-align: center; font-weight: bold; margin-bottom: 10px; color: var(--text-color); opacity: 0.5; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .sheet-content { overflow-y: auto; padding: 0 20px 40px 20px; overscroll-behavior: contain; }
+        .sheet-handle-bar { padding: 12px 0; display: flex; justify-content: center; }
+        .sheet-handle { width: 40px; height: 5px; background: #ddd; border-radius: 10px; }
+        .sheet-header-title { text-align: center; font-weight: bold; margin-bottom: 10px; color: var(--text-color); opacity: 0.5; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .sheet-content { overflow-y: auto; padding: 0 20px 40px 20px; overscroll-behavior: contain; }
 
-        .sheet-item {
-            display: flex; align-items: center; padding: 16px; margin-bottom: 8px;
-            background-color: transparent; color: var(--text-color);
-            text-decoration: none; border-radius: 16px;
-            font-weight: 600; font-size: 16px; transition: 0.2s;
-        }
-        .sheet-item:active { background-color: rgba(0,0,0,0.05); transform: scale(0.98); }
-        .sheet-icon { margin-right: 15px; font-size: 20px; }
-        .sheet-text { flex: 1; }
-        
-        .sheet-item.active { background-color: var(--bg-color); color: var(--fab-bg); border: 1px solid var(--fab-bg); }
-        body.dark-mode .sheet-item.active { background-color: rgba(255,255,255,0.1); }
-    `;
-    document.head.appendChild(styleSheet);
+        .sheet-item {
+            display: flex; align-items: center; padding: 16px; margin-bottom: 8px;
+            background-color: transparent; color: var(--text-color);
+            text-decoration: none; border-radius: 16px;
+            font-weight: 600; font-size: 16px; transition: 0.2s;
+        }
+        .sheet-item:active { background-color: rgba(0,0,0,0.05); transform: scale(0.98); }
+        .sheet-icon { margin-right: 15px; font-size: 20px; }
+        .sheet-text { flex: 1; }
+        
+        .sheet-item.active { background-color: var(--bg-color); color: var(--fab-bg); border: 1px solid var(--fab-bg); }
+        body.dark-mode .sheet-item.active { background-color: rgba(255,255,255,0.1); }
+    `;
+    document.head.appendChild(styleSheet);
 }
 
-// 🔓 已註解掉禁止 F12 與右鍵的監聽器 (現在可以使用右鍵了)
-/*
+// 禁止 F12 等快捷鍵
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
-    if (e.key === 'F12' || (e.ctrlKey && ['c','u','s','p'].includes(e.key))) {
-        e.preventDefault(); e.stopPropagation();
-    }
+    if (e.key === 'F12' || (e.ctrlKey && ['c','u','s','p'].includes(e.key))) {
+        e.preventDefault(); e.stopPropagation();
+    }
 });
 */
