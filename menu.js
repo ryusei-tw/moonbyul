@@ -95,15 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 功能 D: 更新 Footer ---
-    const footer = document.querySelector('.footer');
+ const footer = document.querySelector('.footer');
     if (footer) {
         footer.innerHTML = `
-            <p style="margin-bottom: 10px; font-weight: bold;">Create for 문별&별똥별</p>
+            <p style="font-size: 10px; font-weight: bold;">
+            <br>
+            Create for Moonbyul & Shooting Star <br>
+            Hope everyone enjoys the concert to the fullest!<br>
+            </p>
+            <br>
             <p style="font-size: 10px; opacity: 0.6; line-height: 1.6; margin: 0;">
-                本網站為粉絲自製，非官方應用程式。<br>
-                內容僅供個人學習與應援使用，<br>
+                本網站為粉絲自製，內容僅供個人學習與應援使用，<br>
                 嚴禁商業用途或未經授權的修改與轉載。<br>
-                (空耳部分由 Gemini 協助製作)
+                製作 @moonstaratm999<br>
+                中文空耳協作 @only_mamoo_1118<br>
             </p>
         `;
     }
