@@ -5,43 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absence - Moon Byul</title>
     <style>
-        /* --- [laundri] 앨범 스타일 배색 --- */
+        /* --- [laundri] 專輯配色設定 --- */
         :root {
-            --bg-color: #f0f4f8;       /* 연한 그레이 블루 */
-            --text-color: #2d3436;     /* 짙은 회색 */
+            --bg-color: #f0f4f8;       /* 淺灰藍 */
+            --text-color: #2d3436;     /* 深灰 */
             --bar-bg: rgba(255, 255, 255, 0.90);
-            --accent: #FF6B35;         /* 활기찬 오렌지 */
-            --fab-bg: #4DA1FF;         /* 스카이 블루 */
+            --accent: #FF6B35;         /* 活力橙 */
+            --fab-bg: #4DA1FF;         /* 天空藍 */
             --fab-text: #ffffff;
             --menu-bg: #ffffff;
             --shadow: 0 8px 20px rgba(77, 161, 255, 0.2);
-            /* 언어별 색상 */
-            --highlight-color: #d32f2f; /* 일본어 (빨강) */
-            --eng-color: #2e7d32;       /* 영어 (초록) */
-            --zh-color: #e65100;        /* 중국어 (주황) */
+            /* 語言顏色 */
+            --highlight-color: #d32f2f; /* 日 (紅) */
+            --eng-color: #2e7d32;       /* 英 (綠) */
+            --zh-color: #e65100;        /* 中 (橘) */
         }
         body.dark-mode {
-            --bg-color: #101820;       /* 딥 데님 */
-            --text-color: #dfe6e9;     /* 회백색 */
+            --bg-color: #101820;       /* 深丹寧 */
+            --text-color: #dfe6e9;     /* 灰白 */
             --bar-bg: rgba(16, 24, 32, 0.95);
             --accent: #FF9F43;
             --fab-bg: #2e86de;
             --fab-text: #ffffff;
             --menu-bg: #1e272e;
             --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            /* 다크 모드 언어 색상 */
+            /* 深色模式下的語言顏色 */
             --highlight-color: #ffeb3b;
             --eng-color: #69f0ae;
             --zh-color: #ffab91;
         }
         body {
             background-color: var(--bg-color); color: var(--text-color);
-            font-family: -apple-system, sans-serif;
+            font-family: "Microsoft JhengHei", "微軟正黑體", -apple-system, sans-serif;
             margin: 0; padding: 0; transition: 0.4s ease;
             padding-bottom: 120px; padding-top: 80px; 
         }
 
-        /* 상단 바 */
+        /* 頂部列 */
         .top-bar {
             position: fixed; top: 0; left: 0; right: 0; height: 64px;
             background-color: var(--bar-bg); backdrop-filter: blur(12px);
@@ -56,7 +56,7 @@
         }
         .chip.active { background-color: var(--accent); color: #fff; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 
-        /* 본문 영역 */
+        /* 內容區 */
         .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
         .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
         
@@ -67,7 +67,7 @@
         body.dark-mode .line-box { background: rgba(255,255,255,0.05); }
 
         .kr { font-size: 19px; font-weight: 700; margin-bottom: 4px; display: block; }
-        /* 언어 전환 로직 */
+        /* 語言切換邏輯 */
         .jp { color: var(--highlight-color); display: block; }
         .en, .zh { display: none; }
         .en { color: var(--eng-color); font-family: monospace; font-weight: bold; }
@@ -77,7 +77,7 @@
         .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
         .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
 
-        /* FAB & Menu (menu.js에서 사용) */
+        /* FAB & Menu (menu.js用) */
         .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
         .fab-btn {
             width: 64px; height: 64px; border-radius: 24px;
@@ -124,10 +124,16 @@
 
         <div class="section-title">Intro</div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">(문별이! Absence!)</span></div>
-            <div class="jp"><span class="cheer">(ムンビョリ！ Absence！)</span></div>
-            <div class="en"><span class="cheer">(Moon Byul-i! Absence!)</span></div>
-            <div class="zh"><span class="cheer">(文星伊！ Absence！)</span></div>
+            <div class="kr"><span class="cheer">(MoonByulE)</span></div>
+            <div class="jp"><span class="cheer">(MoonByulE)</span></div>
+            <div class="en"><span class="cheer">(MoonByulE)</span></div>
+            <div class="zh"><span class="cheer">(門飄里)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">(Absence)</span></div>
+            <div class="jp"><span class="cheer">(Absence)</span></div>
+            <div class="en"><span class="cheer">(Absence)</span></div>
+            <div class="zh"><span class="cheer">(Absence)</span></div>
         </div>
 
         <div class="section-title">Verse 1</div>
@@ -158,16 +164,16 @@
 
         <div class="section-title">Chorus</div>
         <div class="line-box">
-            <div class="kr">혼란스러워 leave me alone <span class="cheer">(leave me alone)</span></div>
-            <div class="jp">ホルランスロウォ leave me alone <span class="cheer">(leave me alone)</span></div>
-            <div class="en">Hollanseureowo leave me alone <span class="cheer">(leave me alone)</span></div>
-            <div class="zh">轟蘭蘇羅窩 leave me alone <span class="cheer">(leave me alone)</span></div>
+            <div class="kr">혼란스러워 Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="jp">ホルランスロウォ Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="en">Hollanseureowo Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="zh">轟蘭蘇羅窩 Leave me alone <span class="cheer">(Leave me alone)</span></div>
         </div>
         <div class="line-box">
             <div class="kr">비워낼 수 없는 미움도 <span class="cheer">(미움도)</span></div>
             <div class="jp">ピウォネル ス オムヌン ミウムド <span class="cheer">(ミウムド)</span></div>
             <div class="en">Biwonael su eopneun miumdo <span class="cheer">(Miumdo)</span></div>
-            <div class="zh">逼窩ne 蘇 歐能 米溫多 <span class="cheer">(米溫多)</span></div>
+            <div class="zh">逼窩ne 蘇 歐能 米溫多 <span class="cheer">(咪嗚豆)</span></div>
         </div>
         <div class="line-box">
             <div class="kr">내 온몸에 새길 듯이</div>
@@ -196,10 +202,10 @@
             <div class="zh">ne 媽恩悶 米羅ne</div>
         </div>
         <div class="line-box">
-            <div class="kr">어제와는 다른 이유가</div>
-            <div class="jp">オジェワヌン タルン イユガ</div>
-            <div class="en">Eojewaneun dareun iyuga</div>
-            <div class="zh">歐接哇能 塔潤 宜U嘎</div>
+            <div class="kr">어제와는 <span class="cheer">다른 이유가</span></div>
+            <div class="jp">オジェワヌン <span class="cheer">タルン イユガ</span></div>
+            <div class="en">Eojewaneun <span class="cheer">dareun iyuga</span></div>
+            <div class="zh">歐接哇能 <span class="cheer">她樂 你U嘎</span></div>
         </div>
         <div class="line-box">
             <div class="kr">나도 모르게 죽고 있나 봐</div>
@@ -223,7 +229,7 @@
             <div class="kr">네가 사라질 것 같아 <span class="cheer">(사라질 것 같아)</span></div>
             <div class="jp">ネガ サラジル ゴッ カタ <span class="cheer">(サラジル ゴッ カタ)</span></div>
             <div class="en">Nega sarajil geot gata <span class="cheer">(Sarajil geot gata)</span></div>
-            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(撒拉基 勾 嘎塔)</span></div>
+            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(灑拉吉 勾 嘎她)</span></div>
         </div>
 
         <div class="section-title">Pre-Chorus</div>
@@ -237,7 +243,7 @@
             <div class="kr">이런 말 <span class="cheer">(이런 말)</span> 자꾸만 나 혼자</div>
             <div class="jp">イロン マル <span class="cheer">(イロン マル)</span> チャックマン ナ ホンジャ</div>
             <div class="en">Ireon mal <span class="cheer">(Ireon mal)</span> jakkuman na honja</div>
-            <div class="zh">宜龍 買 <span class="cheer">(宜龍 買)</span> 雜古曼 那 轟家</div>
+            <div class="zh">宜龍 買 <span class="cheer">(伊容 嬤)</span> 雜古曼 那 轟家</div>
         </div>
         <div class="line-box">
             <div class="kr">괜찮다고 말해</div>
@@ -266,7 +272,7 @@
         <div class="line-box">
             <div class="kr">몰랐던 건 아냐 남겨짐에 대해</div>
             <div class="jp">モルラットン ゴン アニャ ナムギョジメ テヘ</div>
-            <div class="en">Mollatdeon geon anya namgyeojime daehae</div>
+            <div class="en">Mollatdeon geon anya namgyeoduji daehae</div>
             <div class="zh">摸拉洞 公 阿nya 男gyo-ji-me de-he</div>
         </div>
         <div class="line-box">
@@ -282,20 +288,49 @@
             <div class="zh">那曼 no-u-myon no-ah jil 米六綽龍</div>
         </div>
         <div class="line-box">
-            <div class="kr">캄캄한 바다를 헤엄쳐</div>
-            <div class="jp">カムカマン パダルル ヘオムチョ</div>
-            <div class="en">Kamkamhan badareul heeomchyeo</div>
-            <div class="zh">康康曼 八達日 he-om-chyo</div>
+            <div class="kr"><span class="cheer">캄캄한 바다를 헤엄쳐</span></div>
+            <div class="jp"><span class="cheer">カムカマン パダルル ヘオムチョ</span></div>
+            <div class="en"><span class="cheer">Kamkamhan badareul heeomchyeo</span></div>
+            <div class="zh"><span class="cheer">(看看嘛 把她了 嘿永丘)</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">눈 먼 시작의 끝이 보여</div>
-            <div class="jp">ヌン モン シジャゲ ックチ ボヨ</div>
-            <div class="en">Nun meon sijagui kkeuchi boyeo</div>
-            <div class="zh">努 夢 吸家給 個七 波優</div>
+            <div class="kr"><span class="cheer">눈 먼 시작의 끝이 보여</span></div>
+            <div class="jp"><span class="cheer">ヌン モン シジャゲ ックチ ボヨ</span></div>
+            <div class="en"><span class="cheer">Nun meon sijagui kkeuchi boyeo</span></div>
+            <div class="zh"><span class="cheer">(弩 猛 析家給 歌七 頗由)</span></div>
         </div>
 
         <div class="section-title">Chorus</div>
-        <div class="line-box" style="color:var(--text-color); opacity:0.6; border:none;">(Repeat Chorus)</div>
+        <div class="line-box">
+            <div class="kr">혼란스러워 Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="jp">ホルランスロウォ Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="en">Hollanseureowo Leave me alone <span class="cheer">(Leave me alone)</span></div>
+            <div class="zh">轟蘭蘇羅窩 Leave me alone <span class="cheer">(Leave me alone)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">비워낼 수 없는 미움도 <span class="cheer">(미움도)</span></div>
+            <div class="jp">ピウォネル ス オムヌン ミウムド <span class="cheer">(ミウムド)</span></div>
+            <div class="en">Biwonael su eopneun miumdo <span class="cheer">(Miumdo)</span></div>
+            <div class="zh">逼窩ne 蘇 歐能 米溫多 <span class="cheer">(咪嗚豆)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">내 온몸에 새길 듯이</div>
+            <div class="jp">ネ オンモメ セギル トゥシ</div>
+            <div class="en">Nae onmome saegil deusi</div>
+            <div class="zh">ne 翁摸me se-gil 杜西</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">내가 사랑했던 말들이</div>
+            <div class="jp">ネガ サランヘットン マルドゥリ</div>
+            <div class="en">Naega saranghaetdeon maldeuri</div>
+            <div class="zh">ne-ga 撒郎he-don 買度李</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">어느 순간 두려워져</div>
+            <div class="jp">オヌ スンガン トゥリョウォジョ</div>
+            <div class="en">Eoneu sungan duryeowojyeo</div>
+            <div class="zh">歐努 孫甘 杜溜窩九</div>
+        </div>
 
         <div class="section-title">Bridge</div>
         <div class="line-box">
@@ -332,7 +367,7 @@
             <div class="kr">네가 사라질 것 같아 <span class="cheer">(사라질 것 같아)</span></div>
             <div class="jp">ネガ サラジル ゴッ カタ <span class="cheer">(サラジル ゴッ カタ)</span></div>
             <div class="en">Nega sarajil geot gata <span class="cheer">(Sarajil geot gata)</span></div>
-            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(撒拉基 勾 嘎塔)</span></div>
+            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(灑拉吉 勾 嘎她)</span></div>
         </div>
 
         <div class="section-title">Outro</div>
@@ -349,19 +384,12 @@
             <div class="zh">哈魯 me 孫甘 ne 摸悶 安勾 宜搜多</div>
         </div>
         <div class="line-box">
-            <div class="kr">내가 사라질 것 같아 <span class="cheer">(사라질 것 같아)</span></div>
+            <div class="kr">네가 사라질 것 같아 <span class="cheer">(사라질 것 같아)</span></div>
             <div class="jp">ネガ サラジル ゴッ カタ <span class="cheer">(サラジル ゴッ カタ)</span></div>
-            <div class="en">Naega sarajil geot gata <span class="cheer">(Sarajil geot gata)</span></div>
-            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(撒拉基 勾 嘎塔)</span></div>
+            <div class="en">Nega sarajil geot gata <span class="cheer">(Sarajil geot gata)</span></div>
+            <div class="zh">ne-ga 撒拉基 勾 嘎塔 <span class="cheer">(灑拉吉 勾 嘎她)</span></div>
         </div>
         
-        <div class="line-box" style="border: 2px solid var(--accent); border-radius: 16px;">
-            <div class="kr"><span class="cheer">수고했어 문별이!</span></div>
-            <div class="jp"><span class="cheer">スゴヘッソ ムンビョリ！</span></div>
-            <div class="en"><span class="cheer">Su-go-hae-sseo Moon Byul-i!</span></div>
-            <div class="zh"><span class="cheer">辛苦了 文星伊！</span></div>
-            <span class="note">⚠️ Ending Pose!</span>
-        </div>
         <div class="footer"></div>
     </div>
 
