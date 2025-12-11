@@ -11,7 +11,6 @@ const songs = [
     { title: "Attention Seeker", file: "attentionseeker.html", icon: "📢" },
     { title: "LUNATIC", file: "lunatic.html", icon: "👻" },
     { title: "Take-off", file: "takeoff.html", icon: "✈️" },
-    { title: "Shutdown", file: "shutdown.html", icon: "💋" },
     { title: "Absence", file: "absence.html", icon: "☁️" },
     { title: "Over You", file: "overyou.html", icon: "🥀" },
     { title: "ddu ddu ddu", file: "ddudduddu.html", icon: "🌧️" },
