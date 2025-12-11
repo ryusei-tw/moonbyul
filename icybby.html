@@ -36,7 +36,7 @@
         }
         body {
             background-color: var(--bg-color); color: var(--text-color);
-            font-family: -apple-system, sans-serif;
+            font-family: "Microsoft JhengHei", "微軟正黑體", -apple-system, sans-serif;
             margin: 0; padding: 0; transition: 0.4s ease;
             padding-bottom: 120px; padding-top: 80px; 
         }
@@ -58,7 +58,7 @@
 
         /* 內容區 */
         .content { padding: 24px; text-align: center; line-height: 1.8; max-width: 600px; margin: 0 auto; }
-        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; line-height: 1.3; }
+        .song-title { margin: 0 0 40px 0; font-size: 28px; color: var(--text-color); letter-spacing: -0.5px; font-weight: 800; }
         
         .line-box { 
             margin-bottom: 24px; padding: 16px;
@@ -75,9 +75,9 @@
         
         .cheer { color: var(--accent); font-weight: 900; margin-left: 8px; display: inline-block;}
         .note { font-size: 12px; color: var(--accent); margin-top: 5px; display: block; opacity: 0.8; }
-        .section-title { margin-top: 30px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 15px;}
+        .section-title { margin-top: 40px; color: var(--text-color); opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; border-bottom: 1px dashed var(--accent); padding-bottom: 5px;}
 
-        /* FAB & Menu (樣式保留供 menu.js 使用) */
+        /* FAB & Menu (menu.js用) */
         .fab-container { position: fixed; bottom: 32px; left: 24px; z-index: 200; }
         .fab-btn {
             width: 64px; height: 64px; border-radius: 24px;
@@ -91,7 +91,7 @@
         .song-menu {
             position: absolute; bottom: 80px; left: 0;
             background-color: var(--menu-bg); border-radius: 24px;
-            width: 220px; padding: 8px; box-shadow: var(--shadow);
+            width: 240px; padding: 8px; box-shadow: var(--shadow);
             opacity: 0; transform: translateY(20px) scale(0.9); transform-origin: bottom left;
             pointer-events: none; transition: 0.4s; border: 1px solid rgba(0,0,0,0.05);
         }
@@ -123,6 +123,12 @@
         <h2 class="song-title">ICY BBY</h2>
 
         <div class="line-box">
+            <div class="kr"><span class="cheer">(내 맘 녹여 문별 ICE)</span></div>
+            <div class="jp"><span class="cheer">(ネ マム ノギョ ムンビョル ICE)</span></div>
+            <div class="en"><span class="cheer">(Nae Mam Nogyeo Moonbyul ICE)</span></div>
+            <div class="zh"><span class="cheer">(內 嗎 弩勾 Moonbyul ICE)</span></div>
+        </div>
+        <div class="line-box">
             <div class="kr">Taste it, it's like i-i-ice</div>
             <div class="jp">Taste it, it's like i-i-ice</div>
             <div class="en">Taste it, it's like i-i-ice</div>
@@ -132,21 +138,26 @@
             <div class="kr">얼음같이 차갑대 모두들 <span class="cheer">ah-ya-ya</span></div>
             <div class="jp">オルムカチ チャガプテ モドゥドゥル <span class="cheer">ah-ya-ya</span></div>
             <div class="en">Eoreumgachi chagapdae modudeul <span class="cheer">ah-ya-ya</span></div>
-            <div class="zh">歐冷嘎七 查嘎de 摸度都 <span class="cheer">ah-ya-ya</span></div>
+            <div class="zh">歐冷嘎七 查嘎de 摸度都 <span class="cheer">A-YA-YA</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">Don't get it twisted 오해는 마 <span class="cheer">ya-ya</span></div>
-            <div class="jp">Don't get it twisted オヘヌン マ <span class="cheer">ya-ya</span></div>
-            <div class="en">Don't get it twisted ohaeneun ma <span class="cheer">ya-ya</span></div>
-            <div class="zh">Don't get it twisted 歐he能 媽 <span class="cheer">ya-ya</span></div>
+            <div class="kr">Don't get it twisted 오해는 마 ya-ya</div>
+            <div class="jp">Don't get it twisted オヘヌン マ ya-ya</div>
+            <div class="en">Don't get it twisted ohaeneun ma ya-ya</div>
+            <div class="zh">Don't get it twisted 歐he能 媽 ya-ya</div>
         </div>
         <div class="line-box">
-            <div class="kr">때로는 기분 좋은 상상도 <span class="cheer">약, 약, 약, 약</span></div>
-            <div class="jp">ッテロヌン キブン チョウン サンサンド <span class="cheer">ヤッ, ヤッ, ヤッ, ヤッ</span></div>
-            <div class="en">Ttaeroneun gibun joeun sangsangdo <span class="cheer">yak, yak, yak, yak</span></div>
-            <div class="zh">de-ro-能 gi-bun 啾恩 桑桑多 <span class="cheer">yak, yak, yak, yak</span></div>
+            <div class="kr"><span class="cheer">Don't get it twisted, 喔黑能 嗎 YA-YA</span></div>
+            <div class="jp"><span class="cheer">Don't get it twisted, オヘヌン マ YA-YA</span></div>
+            <div class="en"><span class="cheer">Don't get it twisted, Ohaeneun Ma YA-YA</span></div>
+            <div class="zh"><span class="cheer">Don't get it twisted, 喔黑能 嗎 YA-YA</span></div>
         </div>
-
+        <div class="line-box">
+            <div class="kr">때로는 기분 좋은 상상도 <span class="cheer">약 (약! 약! 약!)</span></div>
+            <div class="jp">ッテロヌン キブン チョウン サンサンド <span class="cheer">ヤッ (ヤッ! ヤッ! ヤッ!)</span></div>
+            <div class="en">Ttaeroneun gibun joeun sangsangdo <span class="cheer">yak (yak! yak! yak!)</span></div>
+            <div class="zh">de-ro-能 gi-bun 啾恩 桑桑多 <span class="cheer">呀 (呀! 呀! 呀!)</span></div>
+        </div>
         <div class="section-title">Verse 1</div>
         <div class="line-box">
             <div class="kr">아무렇지 않은 척하고 있어도</div>
@@ -161,42 +172,42 @@
             <div class="zh">塔嘎歐勾 喜噴 勾</div>
         </div>
         <div class="line-box">
-            <div class="kr">Baby 이미 알고 있어</div>
-            <div class="jp">Baby イミ アルゴ イッソ</div>
-            <div class="en">Baby imi algo isseo</div>
-            <div class="zh">Baby 宜米 阿勾 宜搜</div>
+            <div class="kr">Baby <span class="cheer">이미 알고 있어</span></div>
+            <div class="jp">Baby <span class="cheer">イミ アルゴ イッソ</span></div>
+            <div class="en">Baby <span class="cheer">imi algo isseo</span></div>
+            <div class="zh">Baby <span class="cheer">宜米 阿勾 宜搜</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">Come on 넌 날 믿어봐 dive</div>
-            <div class="jp">Come on ノン ナル ミドバ dive</div>
-            <div class="en">Come on neon nal mideobwa dive</div>
-            <div class="zh">Come on 弄 那 米多八 dive</div>
+            <div class="kr">Come on 넌 날 믿어봐 Dive</div>
+            <div class="jp">Come on ノン ナル ミドバ Dive</div>
+            <div class="en">Come on neon nal mideobwa Dive</div>
+            <div class="zh">Come on 弄 那 米多八 Dive</div>
         </div>
         <div class="line-box">
-            <div class="kr">닿자마자 녹아내려 keep it line</div>
-            <div class="jp">タチャマジャ ノガネリョ keep it line</div>
-            <div class="en">Dajjamaja noganaeryeo keep it line</div>
-            <div class="zh">塔家媽家 no-ga-ne-ryo keep it line</div>
+            <div class="kr">닿자마자 녹아내려 Keep it line ~</div>
+            <div class="jp">タチャマジャ ノガネリョ Keep it line ~</div>
+            <div class="en">Dajjamaja noganaeryeo Keep it line ~</div>
+            <div class="zh">塔家媽家 no-ga-ne-ryo Keep it line ~</div>
         </div>
 
         <div class="section-title">Pre-Chorus</div>
         <div class="line-box">
-            <div class="kr">I like the way I am</div>
-            <div class="jp">I like the way I am</div>
-            <div class="en">I like the way I am</div>
-            <div class="zh">I like the way I am</div>
+            <div class="kr"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="jp"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="en"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="zh"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">시선 따윈 신경 안 써 나 <span class="cheer">(나)</span></div>
-            <div class="jp">シソン タウィン シンギョン アン ソ ナ <span class="cheer">(ナ)</span></div>
-            <div class="en">Siseon ttawin singyeong an sseo na <span class="cheer">(na)</span></div>
-            <div class="zh">吸送 塔win xin-gyong 安 搜 那 <span class="cheer">(那)</span></div>
+            <div class="kr">시선 따윈 신경 안 써 나 ~</div>
+            <div class="jp">シソン タウィン シンギョン アン ソ ナ ~</div>
+            <div class="en">Siseon ttawin singyeong an sseo na ~</div>
+            <div class="zh">吸送 塔win xin-gyong 安 搜 那 ~</div>
         </div>
         <div class="line-box">
-            <div class="kr">But 점점 더워진 공기에</div>
-            <div class="jp">But チョムジョム トウォジン コンギエ</div>
-            <div class="en">But jeomjeom deowojin gonggie</div>
-            <div class="zh">But 炯炯 偷窩金 空gi-e</div>
+            <div class="kr">But, <span class="cheer">점점 더~워진~ 공~기에</span></div>
+            <div class="jp">But, <span class="cheer">チョムジョム トウォジン コンギエ</span></div>
+            <div class="en">But, <span class="cheer">jeomjeom deowojin gonggie</span></div>
+            <div class="zh">But, <span class="cheer">炯炯 偷窩金 空gi-e</span></div>
         </div>
         <div class="line-box">
             <div class="kr">왠지 녹아내릴 것 같아</div>
@@ -205,66 +216,67 @@
             <div class="zh">wen-ji no-ga-ne-lil 勾 嘎塔</div>
         </div>
         <div class="line-box">
-            <div class="kr">Baby, you can see me like that</div>
-            <div class="jp">Baby, you can see me like that</div>
-            <div class="en">Baby, you can see me like that</div>
-            <div class="zh">Baby, you can see me like that</div>
+            <div class="kr"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="jp"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="en"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="zh"><span class="cheer">BABY U can see me like that</span></div>
         </div>
 
         <div class="section-title">Chorus</div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="jp"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="en"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="zh"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
+            <div class="kr">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="jp">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="en">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="zh">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="jp"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="en"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
-            <div class="zh"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah)</span></div>
+            <div class="kr"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="jp"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="en"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="zh"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">차갑다 해도, 왠지 짜릿할 걸</div>
-            <div class="jp">チャガプタ ヘド, ウェンジ チャリタル コル</div>
-            <div class="en">Chagapda haedo, waenji jjarithal geol</div>
-            <div class="zh">查嘎塔 he-do, wen-ji 雜li-tal 勾</div>
+            <div class="kr">차갑다 해도 왠지 짜릿할 걸</div>
+            <div class="jp">チャガプタ ヘド ウェンジ チャリタル コル</div>
+            <div class="en">Chagapda haedo waenji jjarithal geol</div>
+            <div class="zh">查嘎塔 he-do wen-ji 雜li-tal 勾</div>
         </div>
         <div class="line-box">
-            <div class="kr">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="jp">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="en">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="zh">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
+            <div class="kr">Do U wanna try?</div>
+            <div class="jp">Do U wanna try?</div>
+            <div class="en">Do U wanna try?</div>
+            <div class="zh">Do U wanna try?</div>
         </div>
         <div class="line-box">
-            <div class="kr">I'm like, like</div>
-            <div class="jp">I'm like, like</div>
-            <div class="en">I'm like, like</div>
-            <div class="zh">I'm like, like</div>
+            <div class="kr">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="jp">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="en">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="zh">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+        </div>
+
+        <div class="line-box">
+            <div class="kr"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="jp"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="en"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="zh"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy, icy, icy (ah)</span></div>
-            <div class="jp"><span class="cheer">Icy, icy, icy (ah)</span></div>
-            <div class="en"><span class="cheer">Icy, icy, icy (ah)</span></div>
-            <div class="zh"><span class="cheer">Icy, icy, icy (ah)</span></div>
+            <div class="kr">이가 시려도 ~ 계속 생각날 걸 <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="jp">イガ シリョド ~ ケソク センガンナルコル <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="en">Iga siryeodo ~ gyesok saenggangnalgeol <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="zh">宜嘎 西溜多 ~ ke-sok sen-gang-nal-gol <span class="cheer">(Yeh-Yeh)</span></div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="jp"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="en"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="zh"><span class="cheer">Icy, icy, icy</span></div>
+            <div class="kr">내 존재가 Spice</div>
+            <div class="jp">ネ チョンジェガ Spice</div>
+            <div class="en">Nae jonjaega Spice</div>
+            <div class="zh">ne 窮接嘎 Spice</div>
         </div>
         <div class="line-box">
-            <div class="kr">이가 시려도 계속 생각날걸 <span class="cheer">(yeah, yeah)</span></div>
-            <div class="jp">イガ シリョド ケソク センガンナルコル <span class="cheer">(yeah, yeah)</span></div>
-            <div class="en">Iga siryeodo gyesok saenggangnalgeol <span class="cheer">(yeah, yeah)</span></div>
-            <div class="zh">宜嘎 西溜多 ke-sok sen-gang-nal-gol <span class="cheer">(yeah, yeah)</span></div>
-        </div>
-        <div class="line-box">
-            <div class="kr">내 존재가 spice, uh, feel my eye-eye-eyes</div>
-            <div class="jp">ネ チョンジェガ spice, uh, feel my eye-eye-eyes</div>
-            <div class="en">Nae jonjaega spice, uh, feel my eye-eye-eyes</div>
-            <div class="zh">ne 窮接嘎 spice, uh, feel my eye-eye-eyes</div>
+            <div class="kr">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="jp">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="en">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="zh">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
         </div>
 
         <div class="section-title">Verse 2</div>
@@ -275,83 +287,145 @@
             <div class="zh">塔口曼 買吐e 搜基 媽</div>
         </div>
         <div class="line-box">
-            <div class="kr">이미 시작부터 got you, baby</div>
-            <div class="jp">イミ シジャクプト got you, baby</div>
-            <div class="en">Imi sijakbuteo got you, baby</div>
-            <div class="zh">宜米 吸家噗偷 got you, baby</div>
+            <div class="kr">이미 시작부터 <span class="cheer">Got U Babe</span></div>
+            <div class="jp">イミ シジャクプト <span class="cheer">Got U Babe</span></div>
+            <div class="en">Imi sijakbuteo <span class="cheer">Got U Babe</span></div>
+            <div class="zh">宜米 吸家噗偷 <span class="cheer">Got U Babe</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">겉으론 <span class="cheer">ice, ice, baby (baby)</span></div>
-            <div class="jp">コトゥロン <span class="cheer">ice, ice, baby (baby)</span></div>
-            <div class="en">Geoteuron <span class="cheer">ice, ice, baby (baby)</span></div>
-            <div class="zh">勾特龍 <span class="cheer">ice, ice, baby (baby)</span></div>
+            <div class="kr">겉으론 ICE ICE BABY</div>
+            <div class="jp">コトゥロン ICE ICE BABY</div>
+            <div class="en">Geoteuron ICE ICE BABY</div>
+            <div class="zh">勾特龍 ICE ICE BABY</div>
         </div>
         <div class="line-box">
-            <div class="kr">내 곁에 있으면 얼어붙게 돼</div>
-            <div class="jp">ネ キョテ イッスミョン オロブッケ デ</div>
-            <div class="en">Nae gyeote isseumyeon eoreobutge dwae</div>
-            <div class="zh">ne kyo-te 宜蘇謬 歐羅不給 dwe</div>
+            <div class="kr">내 곁에 있으면 <span class="cheer">얼어붙게 돼</span></div>
+            <div class="jp">ネ キョテ イッスミョン <span class="cheer">オロブッケ デ</span></div>
+            <div class="en">Nae gyeote isseumyeon <span class="cheer">eoreobutge dwae</span></div>
+            <div class="zh">ne kyo-te 宜蘇謬 <span class="cheer">歐羅不給 dwe</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">얼음장 <span class="cheer">(ooh)</span> 같아도 난 hot 해, 반전주의 <span class="cheer">(uh)</span></div>
-            <div class="jp">オルムジャン <span class="cheer">(ooh)</span> カタド ナン hot ヘ, パンジョンジュウィ <span class="cheer">(uh)</span></div>
-            <div class="en">Eoreumjang <span class="cheer">(ooh)</span> gatado nan hot hae, banjeonjuui <span class="cheer">(uh)</span></div>
-            <div class="zh">歐冷張 <span class="cheer">(ooh)</span> 嘎塔多 難 hot he, 潘迥朱we <span class="cheer">(uh)</span></div>
+            <div class="kr">얼음장 같아도 난 Hot 해 반전주의</div>
+            <div class="jp">オルムジャン カタド ナン Hot ヘ パンジョンジュウィ</div>
+            <div class="en">Eoreumjang gatado nan Hot hae banjeonjuui</div>
+            <div class="zh">歐冷張 嘎塔多 難 Hot he 潘迥朱we</div>
         </div>
         <div class="line-box">
-            <div class="kr">네 심장 온도 내가 지나가면 변해 두바이로</div>
-            <div class="jp">ネ シムジャン オンド ネガ チナガミョン ピョネ ドゥバイロ</div>
-            <div class="en">Ne simjang ondo naega jinagamyeon byeonhae duba-iro</div>
-            <div class="zh">ne 心張 翁多 ne-ga 基那嘎謬 pyo-ne 杜拜羅</div>
+            <div class="kr">네 심장 온도 내가 지나가면 <span class="cheer">변해 두바이로</span></div>
+            <div class="jp">ネ シムジャン オンド ネガ チナガミョン <span class="cheer">ピョネ ドゥバイロ</span></div>
+            <div class="en">Ne simjang ondo naega jinagamyeon <span class="cheer">byeonhae duba-iro</span></div>
+            <div class="zh">尼 心張 翁多 ne-ga 基那嘎謬 <span class="cheer">pyo-ne 杜拜宜羅</span></div>
         </div>
+
         
         <div class="section-title">Pre-Chorus 2</div>
         <div class="line-box">
-            <div class="kr">오늘은 딸기, 내일은 바닐라</div>
-            <div class="jp">オヌルン ッタルギ, ネイルン パニラ</div>
-            <div class="en">Oneureun ttalgi, naeireun banilla</div>
-            <div class="zh">歐努潤 達gi, ne-il-run 香草</div>
+            <div class="kr">오늘은 <span class="cheer">딸기</span> 내일은 <span class="cheer">바닐라</span></div>
+            <div class="jp">オヌルン <span class="cheer">ッタルギ</span> ネイルン <span class="cheer">パニラ</span></div>
+            <div class="en">Oneureun <span class="cheer">ttalgi</span>, naeireun <span class="cheer">banilla</span></div>
+            <div class="zh">歐努潤 <span class="cheer">達gi</span>, ne-il-run <span class="cheer">怕妮啦</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">기분 따라 바뀌는 flavor 날 따라 <span class="cheer">(uh)</span></div>
-            <div class="jp">キブン タラ パックィヌン flavor ナル タラ <span class="cheer">(uh)</span></div>
-            <div class="en">Gibun ttara bakkwineun flavor nal ttara <span class="cheer">(uh)</span></div>
-            <div class="zh">gi-bun 塔拉 八gwi-neun flavor 那 塔拉 <span class="cheer">(uh)</span></div>
+            <div class="kr">기분 따라 바뀌는 Flavor 날 따라</div>
+            <div class="jp">キブン タラ パックィヌン Flavor ナル タラ</div>
+            <div class="en">Gibun ttara bakkwineun Flavor nal ttara</div>
+            <div class="zh">gi-bun 塔拉 八gwi-neun Flavor 那 塔拉</div>
         </div>
         <div class="line-box">
-            <div class="kr">내가 먼저 한발, 다가감 넌 두발 <span class="cheer">(huh, yeah)</span></div>
-            <div class="jp">ネガ モンジョ ハンバル, タガガム ノン トゥバル <span class="cheer">(huh, yeah)</span></div>
-            <div class="en">Naega meonjeo hanbal, dagagam neon dubal <span class="cheer">(huh, yeah)</span></div>
-            <div class="zh">ne-ga 夢鳩 罕八, 塔嘎甘 弄 杜八 <span class="cheer">(huh, yeah)</span></div>
+            <div class="kr">내가 먼저 한발, 다가감 넌 두발</div>
+            <div class="jp">ネガ モンジョ ハンバル, タガガム ノン トゥバル</div>
+            <div class="en">Naega meonjeo hanbal, dagagam neon dubal</div>
+            <div class="zh">ne-ga 夢鳩 罕八, 塔嘎甘 弄 杜八</div>
         </div>
         <div class="line-box">
-            <div class="kr">뒤로 밀려 웃기지, 넌 already down</div>
-            <div class="jp">ティロ ミルリョ ウッキジ, ノン already down</div>
-            <div class="en">Dwiro millyeo utgiji, neon already down</div>
-            <div class="zh">dwi-ro 米溜 屋gi-ji, 弄 already down</div>
+            <div class="kr">뒤로 밀려 웃기지 넌 <span class="cheer">Already Down</span></div>
+            <div class="jp">ティロ ミルリョ ウッキジ 넌 <span class="cheer">Already Down</span></div>
+            <div class="en">Dwiro millyeo utgiji, neon <span class="cheer">Already Down</span></div>
+            <div class="zh">dwi-ro 米溜 屋gi-ji, 弄 <span class="cheer">Already Down</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">내가 없는 여름은 반쪽짜리야</div>
-            <div class="jp">ネガ オムヌン ヨルムン パンチョッチャリヤ</div>
-            <div class="en">Naega eomneun yeoreumeun banjjokjjariya</div>
-            <div class="zh">ne-ga 歐能 優潤悶 潘鳩家li-ya</div>
+            <div class="kr">내가 없는 여름은 반쪽<span class="cheer">짜리야</span></div>
+            <div class="jp">ネガ オムヌン ヨルムン パンチョッ<span class="cheer">チャリヤ</span></div>
+            <div class="en">Naega eomneun yeoreumeun banjjok<span class="cheer">jjariya</span></div>
+            <div class="zh">ne-ga 歐能 優潤悶 潘鳩<span class="cheer">家裡鴨</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">내가 떠나가야만 시작되는 <span class="cheer">melting party, yah</span></div>
-            <div class="jp">ネガ トナガヤマン シジャクテヌン <span class="cheer">melting party, yah</span></div>
-            <div class="en">Naega tteonagayaman sijakdoeneun <span class="cheer">melting party, yah</span></div>
-            <div class="zh">ne-ga 偷那嘎呀曼 吸家dwe-neun <span class="cheer">melting party, yah</span></div>
+            <div class="kr">내가 떠나가야만 시작되는 Melting <span class="cheer">Party ya</span></div>
+            <div class="jp">ネガ トナガヤマン シジャクテヌン Melting <span class="cheer">Party ya</span></div>
+            <div class="en">Naega tteonagayaman sijakdoeneun Melting <span class="cheer">Party ya</span></div>
+            <div class="zh">ne-ga 偷那嘎呀曼 吸家dwe-neun Melting <span class="cheer">Party ya</span></div>
+        </div>
+
+        <div class="section-title">Pre-Chorus</div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="jp"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="en"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+            <div class="zh"><span class="cheer">I ~ Like ~ The way ~ I am</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">시선 따윈 신경 안 써 나 ~</div>
+            <div class="jp">シソン タウィン シンギョン アン ソ ナ ~</div>
+            <div class="en">Siseon ttawin singyeong an sseo na ~</div>
+            <div class="zh">吸送 塔win xin-gyong 安 搜 那 ~</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">But, <span class="cheer">점점 더~워진~ 공~기에</span></div>
+            <div class="jp">But, <span class="cheer">チョムジョム トウォジン コンギエ</span></div>
+            <div class="en">But, <span class="cheer">jeomjeom deowojin gonggie</span></div>
+            <div class="zh">But, <span class="cheer">炯炯 偷窩金 空gi-e</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">왠지 녹아내릴 것 같아</div>
+            <div class="jp">ウェンジ ノガネリル ゴッ カタ</div>
+            <div class="en">Waenji noganaeril geot gata</div>
+            <div class="zh">wen-ji no-ga-ne-lil 勾 嘎塔</div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="jp"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="en"><span class="cheer">BABY U can see me like that</span></div>
+            <div class="zh"><span class="cheer">BABY U can see me like that</span></div>
         </div>
 
         <div class="section-title">Chorus</div>
-        <div class="line-box" style="color:var(--text-color); opacity:0.6; border:none;">(Repeat Pre-Chorus & Chorus)</div>
-
+        <div class="line-box">
+            <div class="kr">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="jp">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="en">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="zh">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+        </div>
+        <div class="line-box">
+            <div class="kr"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="jp"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="en"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="zh"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">이가 시려도 ~ 계속 생각날 걸 <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="jp">イガ シリョド ~ ケソク センガンナルコル <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="en">Iga siryeodo ~ gyesok saenggangnalgeol <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="zh">宜嘎 西溜多 ~ ke-sok sen-gang-nal-gol <span class="cheer">(Yeh-Yeh)</span></div>
+        </div>
+        <div class="line-box">
+            <div class="kr">내 존재가 Spice</div>
+            <div class="jp">ネ チョンジェガ Spice</div>
+            <div class="en">Nae jonjaega Spice</div>
+            <div class="zh">ne 窮接嘎 Spice</div>
+        </div>
+        <div class="line-box">
+            <div class="kr">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="jp">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="en">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+            <div class="zh">Uh Feel my <span class="cheer">ICE-ICE-ICE</span></div>
+        </div>
+        
         <div class="section-title">Bridge</div>
         <div class="line-box">
-            <div class="kr">투명한 그대로 <span class="cheer">(oh)</span></div>
-            <div class="jp">トゥミョンハン クデロ <span class="cheer">(oh)</span></div>
-            <div class="en">Tumyeonghan geudaero <span class="cheer">(oh)</span></div>
-            <div class="zh">吐謬罕 ke-de-ro <span class="cheer">(oh)</span></div>
+            <div class="kr">투명한 그대로 ~</div>
+            <div class="jp">トゥミョンハン クデロ ~</div>
+            <div class="en">Tumyeonghan geudaero ~</div>
+            <div class="zh">吐謬罕 ke-de-ro ~</div>
         </div>
         <div class="line-box">
             <div class="kr">아무것도 포장하지 않은 새로운 날</div>
@@ -360,79 +434,79 @@
             <div class="zh">阿母勾多 po-jang-ha-ji 阿能 se-ro-un 那</div>
         </div>
         <div class="line-box">
-            <div class="kr">더 많이 원해 더</div>
-            <div class="jp">ト マニ ウォネ ト</div>
-            <div class="en">Deo mani wonhae deo</div>
-            <div class="zh">偷 媽妳 翁he 偷</div>
+            <div class="kr">더 많이 원해 더 <span class="cheer">(원해 더!)</span></div>
+            <div class="jp">ト マニ ウォネ ト <span class="cheer">(원해 더!)</span></div>
+            <div class="en">Deo mani wonhae deo <span class="cheer">(wonhae deo!)</span></div>
+            <div class="zh">偷 媽妳 翁he 偷 <span class="cheer">(網嘿 豆!)</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">우리의 뜨거웠던 하루를 녹여</div>
-            <div class="jp">ウリエ トゥゴウォットン ハルル ノギョ</div>
-            <div class="en">Uriui tteugeowotdeon harureul nogyeo</div>
-            <div class="zh">屋裡e du-go-wo-don 哈魯日 no-gyo</div>
+            <div class="kr">우리의 뜨거웠던 <span class="cheer">하루를 녹여</span></div>
+            <div class="jp">ウリエ トゥゴウォットン <span class="cheer">ハルル ノギョ</span></div>
+            <div class="en">Uriui tteugeowotdeon <span class="cheer">harureul nogyeo</span></div>
+            <div class="zh">屋裡e du-go-wo-don <span class="cheer">哈魯日 no-gyo</span></div>
         </div>
-
+        
         <div class="section-title">Outro</div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="jp"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="en"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="zh"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
+            <div class="kr">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="jp">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="en">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
+            <div class="zh">ICY BABY BABY, ICY ICY BABY Ah-Ah</div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="jp"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="en"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
-            <div class="zh"><span class="cheer">Icy baby, baby, icy, icy, baby (ah, ah, umm)</span></div>
+            <div class="kr"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="jp"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="en"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
+            <div class="zh"><span class="cheer">ICY BABY BABY, ICY ICY BABY Ah-Ah</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">차갑다 해도 왠지 짜릿할 걸 <span class="cheer">(I give it, I wanna try, I give it)</span></div>
-            <div class="jp">チャガプタ ヘド ウェンジ チャリタル コル <span class="cheer">(I give it, I wanna try, I give it)</span></div>
-            <div class="en">Chagapda haedo waenji jjarithal geol <span class="cheer">(I give it, I wanna try, I give it)</span></div>
-            <div class="zh">查嘎塔 he-do wen-ji 雜li-tal 勾 <span class="cheer">(I give it, I wanna try, I give it)</span></div>
+            <div class="kr">차갑다 해도 왠지 짜릿할 걸</div>
+            <div class="jp">チャガプタ ヘド ウェンジ チャリタル コル</div>
+            <div class="en">Chagapda haedo waenji jjarithal geol</div>
+            <div class="zh">查嘎塔 he-do wen-ji 雜li-tal 勾</div>
         </div>
         <div class="line-box">
-            <div class="kr">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="jp">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="en">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
-            <div class="zh">Do you wanna try little taste of mine? <span class="cheer">(Umm)</span></div>
+            <div class="kr">Do U wanna try?</div>
+            <div class="jp">Do U wanna try?</div>
+            <div class="en">Do U wanna try?</div>
+            <div class="zh">Do U wanna try?</div>
         </div>
         <div class="line-box">
-            <div class="kr">I'm like, like</div>
-            <div class="jp">I'm like, like</div>
-            <div class="en">I'm like, like</div>
-            <div class="zh">I'm like, like</div>
+            <div class="kr">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="jp">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="en">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
+            <div class="zh">little taste of mine! <span class="cheer">Umm  I’m like, like</span></div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy, icy, icy (I like you, know I got you, ah)</span></div>
-            <div class="jp"><span class="cheer">Icy, icy, icy (I like you, know I got you, ah)</span></div>
-            <div class="en"><span class="cheer">Icy, icy, icy (I like you, know I got you, ah)</span></div>
-            <div class="zh"><span class="cheer">Icy, icy, icy (I like you, know I got you, ah)</span></div>
+            <div class="kr"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="jp"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="en"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
+            <div class="zh"><span class="cheer">ICY ICY ICY Ah!  ICY ICY ICY</span></div>
         </div>
         <div class="line-box">
-            <div class="kr"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="jp"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="en"><span class="cheer">Icy, icy, icy</span></div>
-            <div class="zh"><span class="cheer">Icy, icy, icy</span></div>
+            <div class="kr">이가 시려도 ~ 계속 생각날 걸 <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="jp">イガ シリョド ~ ケソク センガンナルコル <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="en">Iga siryeodo ~ gyesok saenggangnalgeol <span class="cheer">(Yeh-Yeh)</span></div>
+            <div class="zh">宜嘎 西溜多 ~ ㄎㄟ松 誰港拿偷 <span class="cheer">(Yeh-Yeh)</span></div>
         </div>
         <div class="line-box">
-            <div class="kr">이가 시려도 계속 생각날걸 <span class="cheer">(yeah, yeah, uh, yeah)</span></div>
-            <div class="jp">イガ シリョド ケソク センガンナルコル <span class="cheer">(yeah, yeah, uh, yeah)</span></div>
-            <div class="en">Iga siryeodo gyesok saenggangnalgeol <span class="cheer">(yeah, yeah, uh, yeah)</span></div>
-            <div class="zh">宜嘎 西溜多 ke-sok sen-gang-nal-gol <span class="cheer">(yeah, yeah, uh, yeah)</span></div>
+            <div class="kr">내 존재가 Spice</div>
+            <div class="jp">ネ チョンジェガ Spice</div>
+            <div class="en">Nae jonjaega Spice</div>
+            <div class="zh">ne 窮接嘎 Spice</div>
         </div>
         <div class="line-box">
-            <div class="kr">내 존재가 spice (uh), uh, feel my eye-eye-eye</div>
-            <div class="jp">ネ チョンジェガ spice (uh), uh, feel my eye-eye-eye</div>
-            <div class="en">Nae jonjaega spice (uh), uh, feel my eye-eye-eye</div>
-            <div class="zh">ne 窮接嘎 spice (uh), uh, feel my eye-eye-eye</div>
+            <div class="kr">Uh Feel my <span class="cheer">Eyes-Eyes-Eyes</span></div>
+            <div class="jp">Uh Feel my <span class="cheer">Eyes-Eyes-Eyes</span></div>
+            <div class="en">Uh Feel my <span class="cheer">Eyes-Eyes-Eyes</span></div>
+            <div class="zh">Uh Feel my <span class="cheer">Eyes-Eyes-Eyes</span></div>
         </div>
         
         <div class="line-box" style="border: 2px solid var(--accent); border-radius: 16px;">
-            <div class="kr"><span class="cheer">안녕! 뿅! Yeah!</span></div>
-            <div class="jp"><span class="cheer">アンニョン！ ピョン！ Yeah！</span></div>
-            <div class="en"><span class="cheer">Annyeong! Ppyong! Yeah!</span></div>
-            <div class="zh"><span class="cheer">安妞！ 蹦！ Yeah！</span></div>
+            <div class="kr"><span class="cheer">\ SCREAM ! ! ! /</span></div>
+            <div class="jp"><span class="cheer">\ SCREAM ! ! ! /</span></div>
+            <div class="en"><span class="cheer">\ SCREAM ! ! ! /</span></div>
+            <div class="zh"><span class="cheer">\ SCREAM ! ! ! /</span></div>
             <span class="note">⚠️ Ending Pose!</span>
         </div>
         <div class="footer"></div>
